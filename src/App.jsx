@@ -163,7 +163,7 @@ function App() {
             tabIndex="0"
           >
             <div className="logo-icon">
-              <i className="fa-solid fa-socks" />
+             <span className="sock-icon">🧦</span>
             </div>
 
             <div>
@@ -220,7 +220,7 @@ function App() {
             <div className="hero-ring ring-two" />
 
             <div className="hero-circle">
-              <i className="fa-solid fa-socks" />
+            <span className="sock-icon">🧦</span>
               <span>SOCKSY</span>
             </div>
 
@@ -487,7 +487,7 @@ function App() {
       <footer className="footer" id="contact">
         <div className="footer-logo">
           <div className="logo-icon">
-            <i className="fa-solid fa-socks" />
+            <span className="sock-icon">🧦</span>
           </div>
 
           <div>
