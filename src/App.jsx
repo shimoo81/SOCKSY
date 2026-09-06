@@ -316,61 +316,66 @@ function App() {
         </section>
 
         {/* Best Selling */}
-        <section className="section reveal" id="products">
-          <div className="section-heading">
-            <div className="eyebrow">OUR FAVORITES</div>
-            <h2>الأكثر مبيعاً</h2>
-            <p>اختيارات عملائنا المفضلة</p>
+<section className="section reveal" id="products">
+  <div className="section-heading">
+    <div className="eyebrow">OUR FAVORITES</div>
+    <h2>الأكثر مبيعاً</h2>
+    <p>اختيارات عملائنا المفضلة</p>
+  </div>
+
+  <div className="products-grid">
+    {(products.length > 0 ? products : bestSelling).map((product, index) => (
+      <article className="product-card" key={product.id || product.name}>
+        <button
+          className={`favorite ${
+            favorites.includes(index) ? "active" : ""
+          }`}
+          onClick={() => toggleFavorite(index)}
+          aria-label="إضافة للمفضلة"
+        >
+          <i
+            className={
+              favorites.includes(index)
+                ? "fa-solid fa-heart"
+                : "fa-regular fa-heart"
+            }
+          />
+        </button>
+
+        <div className="product-image">
+          {product.image ? (
+            <img src={product.image} alt={product.name} />
+          ) : (
+            <span>{product.icon}</span>
+          )}
+        </div>
+
+        <div className="product-info">
+          <h3>{product.name}</h3>
+          <p>
+            {product.description || "جودة وراحة في كل خطوة"}
+          </p>
+
+          <div className="price-placeholder">
+            {product.price ? `${product.price} جنيه` : "-- جنيه"}
           </div>
 
-          <div className="products-grid">
-            {bestSelling.map((product, index) => (
-              <article className="product-card" key={product.name}>
-                <button
-                  className={`favorite ${
-                    favorites.includes(index) ? "active" : ""
-                  }`}
-                  onClick={() => toggleFavorite(index)}
-                  aria-label="إضافة للمفضلة"
-                >
-                  <i
-                    className={
-                      favorites.includes(index)
-                        ? "fa-solid fa-heart"
-                        : "fa-regular fa-heart"
-                    }
-                  />
-                </button>
+          <button className="product-button">
+            عرض المنتج
+            <i className="fa-solid fa-arrow-left" />
+          </button>
+        </div>
+      </article>
+    ))}
+  </div>
 
-                <div className="product-image">
-  {product.image ? (
-    <img src={product.image} alt={product.name} />
-  ) : (
-    <span>{product.icon}</span>
-  )}
-</div>
-
-                <div className="product-info">
-                  <h3>{product.name}</h3>
-                  <p>جودة وراحة في كل خطوة</p>
-                  <div className="price-placeholder">-- جنيه</div>
-
-                  <button className="product-button">
-                    عرض المنتج
-                    <i className="fa-solid fa-arrow-left" />
-                  </button>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          <div className="center-button">
-            <button className="outline-button">
-              عرض جميع المنتجات
-              <i className="fa-solid fa-arrow-left" />
-            </button>
-          </div>
-        </section>
+  <div className="center-button">
+    <button className="outline-button">
+      عرض جميع المنتجات
+      <i className="fa-solid fa-arrow-left" />
+    </button>
+  </div>
+</section>
 
         {/* Different Socks */}
         <section className="section reveal different-section">
