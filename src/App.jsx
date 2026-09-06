@@ -11,7 +11,10 @@ const categories = [
 ];
 
 const bestSelling = [
-  { name: "شرابات بيضاء كلاسيك", icon: "🧦" },
+{ 
+  name: "شرابات بيضاء كلاسيك", 
+  image: "/images/886abd6b-b605-4d7e-8c23-2a49ec0a37aa.jpeg" 
+},
   { name: "شرابات ديزني للأطفال", icon: "🎀" },
   { name: "شرابات ميكي وأصحابه", icon: "🐭" },
   { name: "شرابات أرقام رياضية", icon: "🏃" },
@@ -321,8 +324,12 @@ function App() {
                 </button>
 
                 <div className="product-image">
-                  <span>{product.icon}</span>
-                </div>
+  {product.image ? (
+    <img src={product.image} alt={product.name} />
+  ) : (
+    <span>{product.icon}</span>
+  )}
+</div>
 
                 <div className="product-info">
                   <h3>{product.name}</h3>
