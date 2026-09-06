@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import { supabase } from "./supabase";
 const categories = [
   { icon: "★", title: "تصميمات مميزة", type: "icon" },
   { icon: "🧦", title: "شرابات قصيرة", type: "emoji" },
