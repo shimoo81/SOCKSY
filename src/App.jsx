@@ -73,6 +73,25 @@ const bundles = [
 ];
 
 function App() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    async function loadProducts() {
+      const { data, error } = await supabase
+        .from("products")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error("Supabase error:", error);
+        return;
+      }
+
+      setProducts(data || []);
+    }
+
+    loadProducts();
+  }, []);
   const [menuOpen, setMenuOpen] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [showTop, setShowTop] = useState(false);
