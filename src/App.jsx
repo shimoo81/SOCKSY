@@ -74,7 +74,8 @@ const bundles = [
 
 function App() {
   const [products, setProducts] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState(null);
+const [selectedProduct, setSelectedProduct] = useState(null);
+const [cart, setCart] = useState([]);
 
   useEffect(() => {
     async function loadProducts() {
@@ -180,9 +181,9 @@ function App() {
           )}
         </div>
 
-        <button
+       <button
   className="primary-button"
-  onClick={() => alert(`تمت إضافة ${selectedProduct.name} للسلة 🛍️`)}
+  onClick={() => setCart((current) => [...current, selectedProduct])}
 >
   أضف للسلة
   <i className="fa-solid fa-bag-shopping" />
