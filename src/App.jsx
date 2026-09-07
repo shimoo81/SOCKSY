@@ -180,10 +180,13 @@ function App() {
           )}
         </div>
 
-        <button className="primary-button">
-          أضف للسلة
-          <i className="fa-solid fa-bag-shopping" />
-        </button>
+        <button
+  className="primary-button"
+  onClick={() => alert(`تمت إضافة ${selectedProduct.name} للسلة 🛍️`)}
+>
+  أضف للسلة
+  <i className="fa-solid fa-bag-shopping" />
+</button>
       </div>
     </div>
   </div>
