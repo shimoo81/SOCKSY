@@ -362,10 +362,13 @@ function App() {
     <del>{product.old_price} جنيه</del>
   )}
 </div>
-          <button className="product-button">
-            عرض المنتج
-            <i className="fa-solid fa-arrow-left" />
-          </button>
+          <button
+  className="product-button"
+  onClick={() => alert(`تفاصيل المنتج: ${product.name}`)}
+>
+  عرض المنتج
+  <i className="fa-solid fa-arrow-left" />
+</button>
         </div>
       </article>
     ))}
