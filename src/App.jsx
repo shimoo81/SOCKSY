@@ -356,10 +356,12 @@ function App() {
             {product.description || "جودة وراحة في كل خطوة"}
           </p>
 
-          <div className="price-placeholder">
-            {product.price ? `${product.price} جنيه` : "-- جنيه"}
-          </div>
-
+         <div className="price-row">
+  <strong>{product.price} جنيه</strong>
+  {product.old_price && (
+    <del>{product.old_price} جنيه</del>
+  )}
+</div>
           <button className="product-button">
             عرض المنتج
             <i className="fa-solid fa-arrow-left" />
