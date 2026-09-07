@@ -142,6 +142,54 @@ function App() {
   };
 
   return (
+  <>
+    {selectedProduct && (
+  <div className="product-details-page">
+    <button
+      className="back-button"
+      onClick={() => setSelectedProduct(null)}
+    >
+      <i className="fa-solid fa-arrow-right" />
+      العودة للمنتجات
+    </button>
+
+    <div className="product-details">
+      <div className="product-details-image">
+        {selectedProduct.image ? (
+          <img
+            src={selectedProduct.image}
+            alt={selectedProduct.name}
+          />
+        ) : (
+          <span>{selectedProduct.icon || "🧦"}</span>
+        )}
+      </div>
+
+      <div className="product-details-info">
+        <div className="eyebrow">SOCKSY COLLECTION</div>
+
+        <h1>{selectedProduct.name}</h1>
+
+        <p>
+          {selectedProduct.description || "جودة وراحة في كل خطوة"}
+        </p>
+
+        <div className="price-row">
+          <strong>{selectedProduct.price} جنيه</strong>
+
+          {selectedProduct.old_price && (
+            <del>{selectedProduct.old_price} جنيه</del>
+          )}
+        </div>
+
+        <button className="primary-button">
+          أضف للسلة
+          <i className="fa-solid fa-bag-shopping" />
+        </button>
+      </div>
+    </div>
+  </div>
+)}
     <div className="app" dir="rtl">
       {/* Announcement */}
       <div className="announcement">
@@ -537,15 +585,28 @@ function App() {
       </footer>
 
       {/* Back To Top */}
-      <button
+          <button
+
         className={`back-to-top ${showTop ? "show" : ""}`}
+
         onClick={scrollToTop}
+
         aria-label="العودة للأعلى"
+
       >
+
         <i className="fa-solid fa-arrow-up" />
+
       </button>
+
     </div>
+
+  </>
+
   );
+
 }
+
+export default App;
 
 export default App;
