@@ -74,6 +74,7 @@ const bundles = [
 
 function App() {
   const [products, setProducts] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     async function loadProducts() {
