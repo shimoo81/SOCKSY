@@ -141,9 +141,7 @@ function App() {
     });
   };
 
-  return (
-  <>
-    {selectedProduct && (
+  return selectedProduct ? (
   <div className="product-details-page">
     <button
       className="back-button"
@@ -189,8 +187,9 @@ function App() {
       </div>
     </div>
   </div>
-)}
-    <div className="app" dir="rtl">
+) : (
+  <>
+      <div className="app" dir="rtl">
       {/* Announcement */}
       <div className="announcement">
         🔥 عرض الإفتتاح: خصم 15% على أول طلب – استخدم كود:
