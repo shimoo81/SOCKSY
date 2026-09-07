@@ -86,7 +86,7 @@ function App() {
         console.error("Supabase error:", error);
         return;
       }
-alert("Supabase connected: " + (data?.length || 0));
+      
       setProducts(data || []);
     }
 
