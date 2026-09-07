@@ -365,7 +365,7 @@ function App() {
 </div>
           <button
   className="product-button"
-  onClick={() => alert(`تفاصيل المنتج: ${product.name}`)}
+  onClick={() => setSelectedProduct(product)}
 >
   عرض المنتج
   <i className="fa-solid fa-arrow-left" />
