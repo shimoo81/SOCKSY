@@ -76,6 +76,7 @@ function App() {
   const [products, setProducts] = useState([]);
 const [selectedProduct, setSelectedProduct] = useState(null);
 const [cart, setCart] = useState([]);
+const [cartOpen, setCartOpen] = useState(false);
 
   useEffect(() => {
     async function loadProducts() {
@@ -215,7 +216,7 @@ const [cart, setCart] = useState([]);
             <button
               className="cart-button"
               aria-label="حقيبة التسوق"
-              onClick={() => alert("سلة التسوق ستكون متاحة قريبًا")}
+              onClick={() => setCartOpen(true)}
             >
               <i className="fa-solid fa-bag-shopping" />
               <span>{cart.length}</span>
