@@ -640,9 +640,6 @@ const [cartOpen, setCartOpen] = useState(false);
       </button>
 
     </div>
-
   );
-
 }
-
 export default App;
