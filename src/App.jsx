@@ -192,9 +192,8 @@ const [cartOpen, setCartOpen] = useState(false);
       </div>
     </div>
   </div>
-) : (
-  <>
-    {cartOpen && (
+) : cartOpen ? (
+  <div className="cart-page">
       <div className="cart-page">
         <button
           className="back-button"
@@ -230,7 +229,6 @@ const [cartOpen, setCartOpen] = useState(false);
           )}
         </div>
       </div>
-    )}
 
     <div className="app" dir="rtl">
       {/* Announcement */}
@@ -642,8 +640,6 @@ const [cartOpen, setCartOpen] = useState(false);
       </button>
 
     </div>
-
-  </>
 
   );
 
