@@ -194,7 +194,6 @@ const [cartOpen, setCartOpen] = useState(false);
   </div>
 ) : cartOpen ? (
   <div className="cart-page">
-      <div className="cart-page">
         <button
           className="back-button"
           onClick={() => setCartOpen(false)}
@@ -227,9 +226,10 @@ const [cartOpen, setCartOpen] = useState(false);
               </div>
             ))
           )}
-        </div>
+           </div>
       </div>
-
+    </div>
+  ) : (
     <div className="app" dir="rtl">
       {/* Announcement */}
       <div className="announcement">
