@@ -194,7 +194,45 @@ const [cartOpen, setCartOpen] = useState(false);
   </div>
 ) : (
   <>
-      <div className="app" dir="rtl">
+    {cartOpen && (
+      <div className="cart-page">
+        <button
+          className="back-button"
+          onClick={() => setCartOpen(false)}
+        >
+          <i className="fa-solid fa-arrow-right" />
+          العودة للتسوق
+        </button>
+
+        <div className="cart-container">
+          <div className="eyebrow">YOUR BAG</div>
+          <h1>سلة التسوق</h1>
+
+          {cart.length === 0 ? (
+            <p>السلة فارغة</p>
+          ) : (
+            cart.map((item, index) => (
+              <div className="cart-item" key={index}>
+                <div className="cart-item-image">
+                  {item.image ? (
+                    <img src={item.image} alt={item.name} />
+                  ) : (
+                    <span>{item.icon || "🧦"}</span>
+                  )}
+                </div>
+
+                <div className="cart-item-info">
+                  <h3>{item.name}</h3>
+                  <strong>{item.price} جنيه</strong>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+    )}
+
+    <div className="app" dir="rtl">
       {/* Announcement */}
       <div className="announcement">
         🔥 عرض الإفتتاح: خصم 15% على أول طلب – استخدم كود:
