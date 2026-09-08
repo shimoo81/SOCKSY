@@ -218,7 +218,7 @@ const [cart, setCart] = useState([]);
               onClick={() => alert("سلة التسوق ستكون متاحة قريبًا")}
             >
               <i className="fa-solid fa-bag-shopping" />
-              <span>0</span>
+              <span>{cart.length}</span>
             </button>
           </div>
 
