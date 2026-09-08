@@ -228,7 +228,6 @@ const [cartOpen, setCartOpen] = useState(false);
           )}
            </div>
       </div>
-    </div>
   ) : (
     <div className="app" dir="rtl">
       {/* Announcement */}
