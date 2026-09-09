@@ -84,6 +84,7 @@ const [governorate, setGovernorate] = useState("");
 const [address, setAddress] = useState("");
 const [notes, setNotes] = useState("");
 const [orderSubmitting, setOrderSubmitting] = useState(false);
+const [orderSuccess, setOrderSuccess] = useState(false);
 const addToCart = (product) => {
   setCart((current) => {
     const productKey = product.id || product.name;
@@ -254,7 +255,7 @@ const submitOrder = async () => {
     return;
   }
 
-  alert("تم تأكيد طلبك بنجاح ❤️");
+  setOrderSuccess(true);
 
   setCart([]);
   setCustomerName("");
@@ -264,7 +265,27 @@ const submitOrder = async () => {
   setNotes("");
   setCheckoutOpen(false);
 };
-  return selectedProduct ? (
+  return orderSuccess ? (
+  <div className="order-success-page">
+    <div className="order-success-box">
+      <div className="order-success-icon">
+        <i className="fa-solid fa-check" />
+      </div>
+
+      <h2>تم تأكيد طلبك بنجاح ❤️</h2>
+
+      <p>شكرًا لطلبك من SOCKSY</p>
+      <p>سيتم التواصل معك قريبًا لتأكيد تفاصيل الطلب.</p>
+
+      <button
+        className="order-success-button"
+        onClick={() => setOrderSuccess(false)}
+      >
+        العودة للمتجر
+      </button>
+    </div>
+  </div>
+) : selectedProduct ? (
   <div className="product-details-page">
     <button
       className="back-button"
