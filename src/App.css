@@ -1098,8 +1098,8 @@ button:focus-visible {
 ========================= */
 
 .reveal {
-  opacity: 0;
-  transform: translateY(35px);
+  opacity: 1;
+  transform: translateY(0);
   transition:
     opacity 0.75s ease,
     transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1);
