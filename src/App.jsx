@@ -408,30 +408,9 @@ const cartItemsCount = cart.reduce(
           </div>
         </>
       )}
-
     </div>
   </div>
 ) : (
-            cart.map((item, index) => (
-              <div className="cart-item" key={index}>
-                <div className="cart-item-image">
-                  {item.image ? (
-                    <img src={item.image} alt={item.name} />
-                  ) : (
-                    <span>{item.icon || "🧦"}</span>
-                  )}
-                </div>
-
-                <div className="cart-item-info">
-                  <h3>{item.name}</h3>
-                  <strong>{item.price} جنيه</strong>
-                </div>
-              </div>
-            ))
-          )}
-           </div>
-      </div>
-  ) : (
     <div className="app" dir="rtl">
       {/* Announcement */}
       <div className="announcement">
