@@ -78,6 +78,12 @@ const [selectedProduct, setSelectedProduct] = useState(null);
 const [cart, setCart] = useState([]);
 const [cartOpen, setCartOpen] = useState(false);
 const [checkoutOpen, setCheckoutOpen] = useState(false);
+const [customerName, setCustomerName] = useState("");
+const [phone, setPhone] = useState("");
+const [governorate, setGovernorate] = useState("");
+const [address, setAddress] = useState("");
+const [notes, setNotes] = useState("");
+const [orderSubmitting, setOrderSubmitting] = useState(false);
 const addToCart = (product) => {
   setCart((current) => {
     const productKey = product.id || product.name;
@@ -274,25 +280,30 @@ const cartItemsCount = cart.reduce(
 
           <h2>بيانات العميل</h2>
 
-          <div className="form-group">
-            <label>الاسم بالكامل</label>
-            <input
-              type="text"
-              placeholder="اكتب اسمك بالكامل"
-            />
-          </div>
-
+         <div className="form-group">
+  <label>الاسم بالكامل</label>
+  <input
+    type="text"
+    placeholder="اكتب اسمك بالكامل"
+    value={customerName}
+    onChange={(e) => setCustomerName(e.target.value)}
+  />
+           </div>
           <div className="form-group">
             <label>رقم الموبايل</label>
-            <input
-              type="tel"
-              placeholder="01xxxxxxxxx"
-            />
+           <input
+  type="tel"
+  placeholder="01xxxxxxxxx"
+  value={phone}
+  onChange={(e) => setPhone(e.target.value)}
+/>
           </div>
-
           <div className="form-group">
             <label>المحافظة</label>
-            <select defaultValue="">
+           <select
+  value={governorate}
+  onChange={(e) => setGovernorate(e.target.value)}
+>
               <option value="" disabled>
                 اختر المحافظة
               </option>
@@ -328,18 +339,22 @@ const cartItemsCount = cart.reduce(
 
           <div className="form-group">
             <label>العنوان بالتفصيل</label>
-            <textarea
-              rows="4"
-              placeholder="المنطقة، الشارع، رقم العقار، الدور، الشقة..."
-            />
+           <textarea
+  rows="4"
+  placeholder="المنطقة، الشارع، رقم العقار، الدور، الشقة..."
+  value={address}
+  onChange={(e) => setAddress(e.target.value)}
+/>
           </div>
 
           <div className="form-group">
             <label>ملاحظات إضافية <span>(اختياري)</span></label>
-            <textarea
-              rows="3"
-              placeholder="أي ملاحظات خاصة بالطلب أو التوصيل"
-            />
+           <textarea
+  rows="3"
+  placeholder="أي ملاحظات خاصة بالطلب أو التوصيل"
+  value={notes}
+  onChange={(e) => setNotes(e.target.value)}
+/>
           </div>
 
         </div>
