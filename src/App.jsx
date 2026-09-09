@@ -205,7 +205,65 @@ const cartItemsCount = cart.reduce(
       behavior: "smooth",
     });
   };
+const submitOrder = async () => {
+  if (
+    !customerName.trim() ||
+    !phone.trim() ||
+    !governorate ||
+    !address.trim()
+  ) {
+    alert("من فضلك أكمل البيانات المطلوبة.");
+    return;
+  }
 
+  if (cart.length === 0) {
+    alert("السلة فارغة.");
+    return;
+  }
+
+  setOrderSubmitting(true);
+
+  const orderItems = cart.map((item) => ({
+    id: item.id || null,
+    name: item.name,
+    price: Number(item.price || 0),
+    quantity: item.quantity,
+    image: item.image || null,
+  }));
+
+  const { error } = await supabase
+    .from("orders")
+    .insert([
+      {
+        customer_name: customerName.trim(),
+        phone: phone.trim(),
+        governorate,
+        address: address.trim(),
+        notes: notes.trim() || null,
+        items: orderItems,
+        total: cartTotal,
+        status: "new",
+      },
+    ]);
+
+  setOrderSubmitting(false);
+
+  if (error) {
+    console.error("Order submission error:", error);
+    alert("حصلت مشكلة أثناء إرسال الطلب. حاول مرة أخرى.");
+    return;
+  }
+
+  alert("تم تأكيد طلبك بنجاح ❤️");
+
+  setCart([]);
+  setCustomerName("");
+  setPhone("");
+  setGovernorate("");
+  setAddress("");
+  setNotes("");
+  setCheckoutOpen(false);
+};
   return selectedProduct ? (
   <div className="product-details-page">
     <button
@@ -418,15 +476,14 @@ const cartItemsCount = cart.reduce(
             </div>
           </div>
 
-          <button
-            className="checkout-confirm-button"
-            onClick={() => {
-              alert("تم استلام بيانات الطلب بنجاح.");
-            }}
-          >
-            تأكيد الطلب
-            <i className="fa-solid fa-check" />
-          </button>
+         <button
+  className="checkout-confirm-button"
+  onClick={submitOrder}
+  disabled={orderSubmitting}
+>
+  {orderSubmitting ? "جاري إرسال الطلب..." : "تأكيد الطلب"}
+  <i className="fa-solid fa-check" />
+</button>
 
         </div>
 
