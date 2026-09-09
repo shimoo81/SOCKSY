@@ -2126,3 +2126,80 @@ button:focus-visible {
     font-size: 16px;
   }
 }
+/* ================================
+   ORDER SUCCESS
+================================ */
+
+.order-success-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  background: var(--beige);
+  direction: rtl;
+}
+
+.order-success-box {
+  width: 100%;
+  max-width: 520px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  padding: 45px 30px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(62, 42, 22, 0.12);
+}
+
+.order-success-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 25px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--yellow-soft);
+  font-size: 32px;
+}
+
+.order-success-icon i {
+  color: var(--brown-dark);
+}
+
+.order-success-box h2 {
+  margin: 0 0 15px;
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--brown-dark);
+}
+
+.order-success-box p {
+  margin: 8px 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.order-success-button {
+  margin-top: 25px;
+  border: 0;
+  border-radius: 14px;
+  padding: 14px 28px;
+  background: var(--brown-dark);
+  color: var(--cream);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.order-success-button:hover {
+  transform: translateY(-2px);
+  background: var(--brown);
+  box-shadow: 0 10px 25px rgba(62, 42, 22, 0.18);
+}
