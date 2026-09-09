@@ -1856,12 +1856,3 @@ button:focus-visible {
     padding: 45px 20px;
   }
 }
-    width: 90px;
-    height: 90px;
-  }
-
-  .cart-item {
-    gap: 12px;
-    padding: 12px;
-  }
-}
