@@ -78,6 +78,63 @@ const [selectedProduct, setSelectedProduct] = useState(null);
 const [cart, setCart] = useState([]);
 const [cartOpen, setCartOpen] = useState(false);
 
+const addToCart = (product) => {
+  setCart((current) => {
+    const productKey = product.id || product.name;
+
+    const existing = current.find(
+      (item) => (item.id || item.name) === productKey
+    );
+
+    if (existing) {
+      return current.map((item) =>
+        (item.id || item.name) === productKey
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+    }
+
+    return [
+      ...current,
+      {
+        ...product,
+        quantity: 1,
+      },
+    ];
+  });
+};
+
+const increaseQuantity = (productKey) => {
+  setCart((current) =>
+    current.map((item) =>
+      (item.id || item.name) === productKey
+        ? { ...item, quantity: item.quantity + 1 }
+        : item
+    )
+  );
+};
+
+const decreaseQuantity = (productKey) => {
+  setCart((current) =>
+    current
+      .map((item) =>
+        (item.id || item.name) === productKey
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
+      .filter((item) => item.quantity > 0)
+  );
+};
+
+const cartTotal = cart.reduce(
+  (total, item) => total + Number(item.price || 0) * item.quantity,
+  0
+);
+
+const cartItemsCount = cart.reduce(
+  (total, item) => total + item.quantity,
+  0
+);
   useEffect(() => {
     async function loadProducts() {
       const { data, error } = await supabase
@@ -184,7 +241,7 @@ const [cartOpen, setCartOpen] = useState(false);
 
        <button
   className="primary-button"
-  onClick={() => setCart((current) => [...current, selectedProduct])}
+  onClick={() => addToCart(selectedProduct)}
 >
   أضف للسلة
   <i className="fa-solid fa-bag-shopping" />
@@ -194,21 +251,167 @@ const [cartOpen, setCartOpen] = useState(false);
   </div>
 ) : cartOpen ? (
   <div className="cart-page">
-        <button
-          className="back-button"
-          onClick={() => setCartOpen(false)}
-        >
-          <i className="fa-solid fa-arrow-right" />
-          العودة للتسوق
-        </button>
+    <button
+      className="back-button"
+      onClick={() => setCartOpen(false)}
+    >
+      <i className="fa-solid fa-arrow-right" />
+      العودة للتسوق
+    </button>
 
-        <div className="cart-container">
+    <div className="cart-container">
+
+      <div className="cart-heading">
+        <div>
           <div className="eyebrow">YOUR BAG</div>
           <h1>سلة التسوق</h1>
+        </div>
 
-          {cart.length === 0 ? (
-            <p>السلة فارغة</p>
-          ) : (
+        {cart.length > 0 && (
+          <span className="cart-count">
+            {cartItemsCount} منتجات
+          </span>
+        )}
+      </div>
+
+      {cart.length === 0 ? (
+        <div className="empty-cart">
+          <div className="empty-cart-icon">
+            🛍️
+          </div>
+
+          <h2>السلة فارغة</h2>
+
+          <p>
+            لسه مفيش منتجات في السلة، اختار الجوارب اللي تحبها وابدأ التسوق.
+          </p>
+
+          <button
+            className="primary-button"
+            onClick={() => setCartOpen(false)}
+          >
+            ابدأ التسوق
+            <i className="fa-solid fa-arrow-left" />
+          </button>
+        </div>
+      ) : (
+        <>
+          <div className="cart-items">
+
+            {cart.map((item) => {
+              const productKey = item.id || item.name;
+              const itemTotal =
+                Number(item.price || 0) * item.quantity;
+
+              return (
+                <div
+                  className="cart-item"
+                  key={productKey}
+                >
+
+                  <div className="cart-item-image">
+                    {item.image ? (
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                      />
+                    ) : (
+                      <span>
+                        {item.icon || "🧦"}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="cart-item-info">
+
+                    <h3>{item.name}</h3>
+
+                    <p>
+                      {item.description ||
+                        "جودة وراحة في كل خطوة"}
+                    </p>
+
+                    <div className="cart-item-price">
+                      {item.price} جنيه
+                    </div>
+
+                    <div className="cart-item-bottom">
+
+                      <div className="quantity-control">
+
+                        <button
+                          onClick={() =>
+                            decreaseQuantity(productKey)
+                          }
+                          aria-label="تقليل الكمية"
+                        >
+                          −
+                        </button>
+
+                        <span>
+                          {item.quantity}
+                        </span>
+
+                        <button
+                          onClick={() =>
+                            increaseQuantity(productKey)
+                          }
+                          aria-label="زيادة الكمية"
+                        >
+                          +
+                        </button>
+
+                      </div>
+
+                      <strong className="cart-item-total">
+                        {itemTotal} جنيه
+                      </strong>
+
+                    </div>
+
+                  </div>
+
+                </div>
+              );
+            })}
+
+          </div>
+
+          <div className="cart-summary">
+
+            <div className="summary-row">
+              <span>عدد المنتجات</span>
+              <strong>{cartItemsCount}</strong>
+            </div>
+
+            <div className="summary-row">
+              <span>الإجمالي</span>
+              <strong className="grand-total">
+                {cartTotal} جنيه
+              </strong>
+            </div>
+
+            <div className="summary-note">
+              🚚 الشحن يتم حسابه عند إتمام الطلب
+            </div>
+
+            <button
+              className="checkout-button"
+              onClick={() => {
+                alert("سيتم تجهيز صفحة إتمام الطلب في الخطوة القادمة.");
+              }}
+            >
+              إتمام الطلب
+              <i className="fa-solid fa-arrow-left" />
+            </button>
+
+          </div>
+        </>
+      )}
+
+    </div>
+  </div>
+) : (
             cart.map((item, index) => (
               <div className="cart-item" key={index}>
                 <div className="cart-item-image">
@@ -254,7 +457,7 @@ const [cartOpen, setCartOpen] = useState(false);
               onClick={() => setCartOpen(true)}
             >
               <i className="fa-solid fa-bag-shopping" />
-              <span>{cart.length}</span>
+              <span>{cartItemsCount}</span>
             </button>
           </div>
 
