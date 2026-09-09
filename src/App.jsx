@@ -77,7 +77,7 @@ function App() {
 const [selectedProduct, setSelectedProduct] = useState(null);
 const [cart, setCart] = useState([]);
 const [cartOpen, setCartOpen] = useState(false);
-
+const [checkoutOpen, setCheckoutOpen] = useState(false);
 const addToCart = (product) => {
   setCart((current) => {
     const productKey = product.id || product.name;
@@ -249,6 +249,175 @@ const cartItemsCount = cart.reduce(
       </div>
     </div>
   </div>
+  ) : checkoutOpen ? (
+  <div className="checkout-page">
+    <button
+      className="back-button"
+      onClick={() => setCheckoutOpen(false)}
+    >
+      <i className="fa-solid fa-arrow-right" />
+      العودة للسلة
+    </button>
+
+    <div className="checkout-container">
+
+      <div className="checkout-heading">
+        <div className="eyebrow">CHECKOUT</div>
+        <h1>إتمام الطلب</h1>
+        <p>أدخل بياناتك لتأكيد طلبك</p>
+      </div>
+
+      <div className="checkout-layout">
+
+        {/* بيانات العميل */}
+        <div className="checkout-form">
+
+          <h2>بيانات العميل</h2>
+
+          <div className="form-group">
+            <label>الاسم بالكامل</label>
+            <input
+              type="text"
+              placeholder="اكتب اسمك بالكامل"
+            />
+          </div>
+
+          <div className="form-group">
+            <label>رقم الموبايل</label>
+            <input
+              type="tel"
+              placeholder="01xxxxxxxxx"
+            />
+          </div>
+
+          <div className="form-group">
+            <label>المحافظة</label>
+            <select defaultValue="">
+              <option value="" disabled>
+                اختر المحافظة
+              </option>
+              <option>القاهرة</option>
+              <option>الجيزة</option>
+              <option>القليوبية</option>
+              <option>الإسكندرية</option>
+              <option>الدقهلية</option>
+              <option>الشرقية</option>
+              <option>الغربية</option>
+              <option>المنوفية</option>
+              <option>البحيرة</option>
+              <option>كفر الشيخ</option>
+              <option>دمياط</option>
+              <option>بورسعيد</option>
+              <option>الإسماعيلية</option>
+              <option>السويس</option>
+              <option>الفيوم</option>
+              <option>بني سويف</option>
+              <option>المنيا</option>
+              <option>أسيوط</option>
+              <option>سوهاج</option>
+              <option>قنا</option>
+              <option>الأقصر</option>
+              <option>أسوان</option>
+              <option>مطروح</option>
+              <option>البحر الأحمر</option>
+              <option>الوادي الجديد</option>
+              <option>شمال سيناء</option>
+              <option>جنوب سيناء</option>
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label>العنوان بالتفصيل</label>
+            <textarea
+              rows="4"
+              placeholder="المنطقة، الشارع، رقم العقار، الدور، الشقة..."
+            />
+          </div>
+
+          <div className="form-group">
+            <label>ملاحظات إضافية <span>(اختياري)</span></label>
+            <textarea
+              rows="3"
+              placeholder="أي ملاحظات خاصة بالطلب أو التوصيل"
+            />
+          </div>
+
+        </div>
+
+        {/* ملخص الطلب */}
+        <div className="checkout-summary">
+
+          <h2>ملخص الطلب</h2>
+
+          <div className="checkout-products">
+
+            {cart.map((item) => (
+              <div
+                className="checkout-product"
+                key={item.id || item.name}
+              >
+
+                <div className="checkout-product-image">
+                  {item.image ? (
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                    />
+                  ) : (
+                    <span>{item.icon || "🧦"}</span>
+                  )}
+                </div>
+
+                <div className="checkout-product-info">
+                  <strong>{item.name}</strong>
+                  <span>
+                    الكمية: {item.quantity}
+                  </span>
+                </div>
+
+                <strong>
+                  {Number(item.price || 0) * item.quantity} جنيه
+                </strong>
+
+              </div>
+            ))}
+
+          </div>
+
+          <div className="checkout-total-row">
+            <span>عدد المنتجات</span>
+            <strong>{cartItemsCount}</strong>
+          </div>
+
+          <div className="checkout-total-row">
+            <span>الإجمالي</span>
+            <strong>{cartTotal} جنيه</strong>
+          </div>
+
+          <div className="checkout-payment">
+            <i className="fa-solid fa-money-bill-wave" />
+
+            <div>
+              <strong>الدفع عند الاستلام</strong>
+              <span>ادفع قيمة الطلب عند وصوله إليك</span>
+            </div>
+          </div>
+
+          <button
+            className="checkout-confirm-button"
+            onClick={() => {
+              alert("تم استلام بيانات الطلب بنجاح.");
+            }}
+          >
+            تأكيد الطلب
+            <i className="fa-solid fa-check" />
+          </button>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
 ) : cartOpen ? (
   <div className="cart-page">
     <button
@@ -395,16 +564,13 @@ const cartItemsCount = cart.reduce(
               🚚 الشحن يتم حسابه عند إتمام الطلب
             </div>
 
-            <button
-              className="checkout-button"
-              onClick={() => {
-                alert("سيتم تجهيز صفحة إتمام الطلب في الخطوة القادمة.");
-              }}
-            >
-              إتمام الطلب
-              <i className="fa-solid fa-arrow-left" />
-            </button>
-
+         <button
+  className="checkout-button"
+  onClick={() => setCheckoutOpen(true)}
+>
+  إتمام الطلب
+  <i className="fa-solid fa-arrow-left" />
+</button>
           </div>
         </>
       )}
