@@ -278,11 +278,16 @@ const submitOrder = async () => {
       <p>سيتم التواصل معك قريبًا لتأكيد تفاصيل الطلب.</p>
 
       <button
-        className="order-success-button"
-        onClick={() => setOrderSuccess(false)}
-      >
-        العودة للمتجر
-      </button>
+  className="order-success-button"
+  onClick={() => {
+    setOrderSuccess(false);
+    setCartOpen(false);
+    setCheckoutOpen(false);
+    setSelectedProduct(null);
+  }}
+>
+  العودة للمتجر
+</button>
     </div>
   </div>
 ) : selectedProduct ? (
