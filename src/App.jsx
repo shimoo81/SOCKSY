@@ -297,6 +297,9 @@ const submitOrder = async () => {
   setNotes("");
   setCheckoutOpen(false);
 };
+if (!adminChecked) {
+  return null;
+}
   return orderSuccess ? (
   <div className="order-success-page">
     <div className="order-success-box">
