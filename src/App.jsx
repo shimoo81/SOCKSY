@@ -343,6 +343,46 @@ const submitOrder = async () => {
 if (!adminChecked) {
   return null;
 }
+if (adminUser && adminProductsOpen) {
+  return (
+    <div className="admin-dashboard-page" dir="rtl">
+      <div className="admin-dashboard-container">
+
+        <div className="admin-dashboard-header">
+          <div>
+            <div className="eyebrow">SOCKSY ADMIN</div>
+            <h1>إدارة المنتجات</h1>
+            <p>إدارة منتجات متجر SOCKSY</p>
+          </div>
+
+          <button
+            className="admin-back-button"
+            onClick={() => setAdminProductsOpen(false)}
+          >
+            <i className="fa-solid fa-arrow-right" />
+            العودة للوحة التحكم
+          </button>
+        </div>
+
+        <div className="admin-dashboard-grid">
+          <div className="admin-dashboard-card">
+            <div className="admin-dashboard-card-icon">
+              <i className="fa-solid fa-box-open" />
+            </div>
+
+            <h2>المنتجات</h2>
+
+            <p>
+              هنا سنضيف لاحقًا إضافة وتعديل وحذف المنتجات.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
 if (adminUser) {
   return (
     <div className="admin-dashboard-page" dir="rtl">
