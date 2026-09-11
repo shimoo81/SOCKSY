@@ -91,6 +91,7 @@ const [adminLoginOpen, setAdminLoginOpen] = useState(false);
 const [adminEmail, setAdminEmail] = useState("");
 const [adminPassword, setAdminPassword] = useState("");
 const [adminLoading, setAdminLoading] = useState(false);
+const [adminProductsOpen, setAdminProductsOpen] = useState(false);
 const addToCart = (product) => {
   setCart((current) => {
     const productKey = product.id || product.name;
@@ -368,13 +369,18 @@ if (adminUser) {
 
         <div className="admin-dashboard-grid">
 
-          <button className="admin-dashboard-card">
-            <div className="admin-dashboard-card-icon">
-              <i className="fa-solid fa-box-open" />
-            </div>
-            <h2>المنتجات</h2>
-            <p>إضافة وتعديل وحذف المنتجات</p>
-          </button>
+          <button
+  className="admin-dashboard-card"
+  onClick={() => setAdminProductsOpen(true)}
+>
+  <div className="admin-dashboard-card-icon">
+    <i className="fa-solid fa-box-open" />
+  </div>
+
+  <h2>المنتجات</h2>
+
+  <p>إضافة وتعديل وحذف المنتجات</p>
+</button>
 
           <button className="admin-dashboard-card">
             <div className="admin-dashboard-card-icon">
