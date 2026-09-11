@@ -425,7 +425,6 @@ if (adminUser && adminProductsOpen) {
           </button>
         </div>
       </div>
-    </div>
   );
 }
 
