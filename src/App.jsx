@@ -242,6 +242,44 @@ const cartItemsCount = cart.reduce(
       behavior: "smooth",
     });
   };
+  const adminLogin = async () => {
+  if (!adminEmail.trim() || !adminPassword) {
+    alert("من فضلك أدخل الإيميل وكلمة المرور.");
+    return;
+  }
+
+  setAdminLoading(true);
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: adminEmail.trim(),
+    password: adminPassword,
+  });
+
+  if (error) {
+    setAdminLoading(false);
+    alert("بيانات الدخول غير صحيحة.");
+    return;
+  }
+
+  const { data: adminData, error: adminError } = await supabase
+    .from("admin_users")
+    .select("user_id")
+    .eq("user_id", data.user.id)
+    .maybeSingle();
+
+  setAdminLoading(false);
+
+  if (adminError || !adminData) {
+    await supabase.auth.signOut();
+    alert("هذا الحساب ليس لديه صلاحية Admin.");
+    return;
+  }
+
+  setAdminUser(data.user);
+  setAdminLoginOpen(false);
+  setAdminEmail("");
+  setAdminPassword("");
+};
 const submitOrder = async () => {
   if (
     !customerName.trim() ||
