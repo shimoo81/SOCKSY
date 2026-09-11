@@ -87,6 +87,10 @@ const [orderSubmitting, setOrderSubmitting] = useState(false);
 const [orderSuccess, setOrderSuccess] = useState(false);
 const [adminUser, setAdminUser] = useState(null);
 const [adminChecked, setAdminChecked] = useState(false);
+const [adminLoginOpen, setAdminLoginOpen] = useState(false);
+const [adminEmail, setAdminEmail] = useState("");
+const [adminPassword, setAdminPassword] = useState("");
+const [adminLoading, setAdminLoading] = useState(false);
 const addToCart = (product) => {
   setCart((current) => {
     const productKey = product.id || product.name;
