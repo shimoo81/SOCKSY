@@ -342,6 +342,66 @@ const submitOrder = async () => {
 if (!adminChecked) {
   return null;
 }
+if (adminLoginOpen) {
+  return (
+    <div className="admin-login-page" dir="rtl">
+      <div className="admin-login-box">
+
+        <div className="admin-login-icon">
+          <i className="fa-solid fa-lock" />
+        </div>
+
+        <div className="eyebrow">SOCKSY ADMIN</div>
+
+        <h1>دخول لوحة التحكم</h1>
+
+        <p>سجل الدخول لإدارة المتجر والمنتجات</p>
+
+        <div className="admin-login-form">
+
+          <label>البريد الإلكتروني</label>
+          <input
+            type="email"
+            placeholder="أدخل البريد الإلكتروني"
+            value={adminEmail}
+            onChange={(e) => setAdminEmail(e.target.value)}
+          />
+
+          <label>كلمة المرور</label>
+          <input
+            type="password"
+            placeholder="أدخل كلمة المرور"
+            value={adminPassword}
+            onChange={(e) => setAdminPassword(e.target.value)}
+          />
+
+          <button
+            className="primary-button"
+            onClick={adminLogin}
+            disabled={adminLoading}
+          >
+            {adminLoading ? "جاري تسجيل الدخول..." : "دخول"}
+            <i className="fa-solid fa-arrow-left" />
+          </button>
+
+          <button
+            className="admin-back-button"
+            onClick={() => {
+              setAdminLoginOpen(false);
+              setAdminEmail("");
+              setAdminPassword("");
+            }}
+          >
+            العودة للمتجر
+          </button>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+return orderSuccess ? (
   return orderSuccess ? (
   <div className="order-success-page">
     <div className="order-success-box">
