@@ -342,6 +342,69 @@ const submitOrder = async () => {
 if (!adminChecked) {
   return null;
 }
+if (adminUser) {
+  return (
+    <div className="admin-dashboard-page" dir="rtl">
+      <div className="admin-dashboard-container">
+
+        <div className="admin-dashboard-header">
+          <div>
+            <div className="eyebrow">SOCKSY ADMIN</div>
+            <h1>لوحة التحكم</h1>
+            <p>مرحبًا بك في إدارة متجر SOCKSY</p>
+          </div>
+
+          <button
+            className="admin-logout-button"
+            onClick={async () => {
+              await supabase.auth.signOut();
+              setAdminUser(null);
+            }}
+          >
+            <i className="fa-solid fa-right-from-bracket" />
+            تسجيل الخروج
+          </button>
+        </div>
+
+        <div className="admin-dashboard-grid">
+
+          <button className="admin-dashboard-card">
+            <div className="admin-dashboard-card-icon">
+              <i className="fa-solid fa-box-open" />
+            </div>
+            <h2>المنتجات</h2>
+            <p>إضافة وتعديل وحذف المنتجات</p>
+          </button>
+
+          <button className="admin-dashboard-card">
+            <div className="admin-dashboard-card-icon">
+              <i className="fa-solid fa-cart-shopping" />
+            </div>
+            <h2>الطلبات</h2>
+            <p>متابعة وإدارة طلبات العملاء</p>
+          </button>
+
+          <button className="admin-dashboard-card">
+            <div className="admin-dashboard-card-icon">
+              <i className="fa-solid fa-gear" />
+            </div>
+            <h2>إعدادات المتجر</h2>
+            <p>إدارة إعدادات SOCKSY</p>
+          </button>
+
+        </div>
+
+        <button
+          className="admin-back-button"
+          onClick={() => setAdminUser(null)}
+        >
+          العودة للمتجر
+        </button>
+
+      </div>
+    </div>
+  );
+}
 if (adminLoginOpen) {
   return (
     <div className="admin-login-page" dir="rtl">
