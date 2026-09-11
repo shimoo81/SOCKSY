@@ -763,9 +763,12 @@ if (!adminChecked) {
       <header className="header">
         <div className="header-inner">
           <div className="header-icons">
-            <button aria-label="حسابي">
-              <i className="fa-regular fa-user" />
-            </button>
+           <button
+  aria-label="حسابي"
+  onClick={() => setAdminLoginOpen(true)}
+>
+  <i className="fa-regular fa-user" />
+</button>
 
             <button aria-label="البحث">
               <i className="fa-solid fa-magnifying-glass" />
