@@ -348,83 +348,120 @@ if (adminUser && adminProductsOpen) {
     <div className="admin-dashboard-page" dir="rtl">
       <div className="admin-dashboard-container">
 
+        <div className="admin-dashboard-header">
+          <div>
+            <div className="eyebrow">SOCKSY ADMIN</div>
+            <h1>إدارة المنتجات</h1>
+            <p>إدارة منتجات متجر SOCKSY</p>
+          </div>
+
+          <div className="admin-products-header-actions">
+
+            <button
+              className="admin-add-product-button"
+              onClick={() =>
+                alert("سنضيف فورم المنتج هنا في الخطوة التالية")
+              }
+            >
+              <i className="fa-solid fa-plus" />
+              إضافة منتج
+            </button>
+
+            <button
+              className="admin-back-button"
+              onClick={() => setAdminProductsOpen(false)}
+            >
+              <i className="fa-solid fa-arrow-right" />
+              العودة للوحة التحكم
+            </button>
+
+          </div>
+        </div>
+
         <div className="admin-products-grid">
-  {products.length === 0 ? (
-    <div className="admin-empty-products">
-      <i className="fa-solid fa-box-open" />
-      <h2>لا توجد منتجات</h2>
-      <p>لم يتم إضافة أي منتجات إلى المتجر حتى الآن.</p>
-    </div>
-  ) : (
-    products.map((product) => (
-      <div className="admin-product-card" key={product.id}>
 
-        <div className="admin-product-image">
-          {product.image ? (
-            <img
-              src={product.image}
-              alt={product.name}
-            />
+          {products.length === 0 ? (
+            <div className="admin-empty-products">
+              <i className="fa-solid fa-box-open" />
+
+              <h2>لا توجد منتجات</h2>
+
+              <p>
+                لم يتم إضافة أي منتجات إلى المتجر حتى الآن.
+              </p>
+            </div>
           ) : (
-            <span>🧦</span>
-          )}
-        </div>
+            products.map((product) => (
+              <div
+                className="admin-product-card"
+                key={product.id}
+              >
 
-        <div className="admin-product-info">
+                <div className="admin-product-image">
+                  {product.image ? (
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                    />
+                  ) : (
+                    <span>🧦</span>
+                  )}
+                </div>
 
-          <div className="admin-product-top">
-            <h2>{product.name}</h2>
+                <div className="admin-product-info">
 
-            {product.featured && (
-              <span className="admin-featured-badge">
-                ⭐ مميز
-              </span>
-            )}
-          </div>
+                  <div className="admin-product-top">
+                    <h2>{product.name}</h2>
 
-          <p>
-            {product.description || "لا يوجد وصف للمنتج"}
-          </p>
+                    {product.featured && (
+                      <span className="admin-featured-badge">
+                        ⭐ مميز
+                      </span>
+                    )}
+                  </div>
 
-          <div className="admin-product-details">
+                  <p>
+                    {product.description ||
+                      "لا يوجد وصف للمنتج"}
+                  </p>
 
-            <div>
-              <span>السعر</span>
-              <strong>{product.price} جنيه</strong>
-            </div>
+                  <div className="admin-product-details">
 
-            {product.old_price && (
-              <div>
-                <span>السعر القديم</span>
-                <del>{product.old_price} جنيه</del>
+                    <div>
+                      <span>السعر</span>
+                      <strong>
+                        {product.price} جنيه
+                      </strong>
+                    </div>
+
+                    {product.old_price && (
+                      <div>
+                        <span>السعر القديم</span>
+                        <del>
+                          {product.old_price} جنيه
+                        </del>
+                      </div>
+                    )}
+
+                    <div>
+                      <span>التصنيف</span>
+                      <strong>
+                        {product.category || "غير محدد"}
+                      </strong>
+                    </div>
+
+                  </div>
+
+                </div>
+
               </div>
-            )}
-
-            <div>
-              <span>التصنيف</span>
-              <strong>
-                {product.category || "غير محدد"}
-              </strong>
-            </div>
-
-          </div>
+            ))
+          )}
 
         </div>
 
       </div>
-    ))
-  )}
-</div>
-
-          <button
-            className="admin-back-button"
-            onClick={() => setAdminProductsOpen(false)}
-          >
-            <i className="fa-solid fa-arrow-right" />
-            العودة للوحة التحكم
-          </button>
-        </div>
-      </div>
+    </div>
   );
 }
 
