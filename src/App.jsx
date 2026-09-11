@@ -402,7 +402,6 @@ if (adminLoginOpen) {
 }
 
 return orderSuccess ? (
-  return orderSuccess ? (
   <div className="order-success-page">
     <div className="order-success-box">
       <div className="order-success-icon">
