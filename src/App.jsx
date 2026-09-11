@@ -433,12 +433,33 @@ if (adminUser) {
     <div className="admin-dashboard-page" dir="rtl">
       <div className="admin-dashboard-container">
 
-        <div className="admin-dashboard-header">
-          <div>
-            <div className="eyebrow">SOCKSY ADMIN</div>
-            <h1>لوحة التحكم</h1>
-            <p>مرحبًا بك في إدارة متجر SOCKSY</p>
-          </div>
+       <div className="admin-dashboard-header">
+  <div>
+    <div className="eyebrow">SOCKSY ADMIN</div>
+    <h1>إدارة المنتجات</h1>
+    <p>إدارة منتجات متجر SOCKSY</p>
+  </div>
+
+  <div className="admin-products-header-actions">
+
+    <button
+      className="admin-add-product-button"
+      onClick={() => alert("سنضيف فورم المنتج هنا في الخطوة التالية")}
+    >
+      <i className="fa-solid fa-plus" />
+      إضافة منتج
+    </button>
+
+    <button
+      className="admin-back-button"
+      onClick={() => setAdminProductsOpen(false)}
+    >
+      <i className="fa-solid fa-arrow-right" />
+      العودة للوحة التحكم
+    </button>
+
+  </div>
+</div>
 
           <button
             className="admin-logout-button"
