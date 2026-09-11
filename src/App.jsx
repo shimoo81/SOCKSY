@@ -85,6 +85,8 @@ const [address, setAddress] = useState("");
 const [notes, setNotes] = useState("");
 const [orderSubmitting, setOrderSubmitting] = useState(false);
 const [orderSuccess, setOrderSuccess] = useState(false);
+const [adminUser, setAdminUser] = useState(null);
+const [adminChecked, setAdminChecked] = useState(false);
 const addToCart = (product) => {
   setCart((current) => {
     const productKey = product.id || product.name;
@@ -159,6 +161,36 @@ const cartItemsCount = cart.reduce(
 
     loadProducts();
   }, []);
+  useEffect(() => {
+  async function checkAdmin() {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      setAdminUser(null);
+      setAdminChecked(true);
+      return;
+    }
+
+    const { data, error } = await supabase
+      .from("admin_users")
+      .select("user_id")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (error) {
+      console.error("Admin check error:", error);
+      setAdminUser(null);
+    } else {
+      setAdminUser(data ? user : null);
+    }
+
+    setAdminChecked(true);
+  }
+
+  checkAdmin();
+}, []);
   const [menuOpen, setMenuOpen] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [showTop, setShowTop] = useState(false);
