@@ -470,33 +470,16 @@ if (adminUser) {
     <div className="admin-dashboard-page" dir="rtl">
       <div className="admin-dashboard-container">
 
-       <div className="admin-dashboard-header">
-  <div>
-    <div className="eyebrow">SOCKSY ADMIN</div>
-    <h1>إدارة المنتجات</h1>
-    <p>إدارة منتجات متجر SOCKSY</p>
-  </div>
+        <div className="admin-dashboard-header">
+          <div>
+            <div className="eyebrow">SOCKSY ADMIN</div>
 
-  <div className="admin-products-header-actions">
+            <h1>لوحة تحكم SOCKSY</h1>
 
-    <button
-      className="admin-add-product-button"
-      onClick={() => alert("سنضيف فورم المنتج هنا في الخطوة التالية")}
-    >
-      <i className="fa-solid fa-plus" />
-      إضافة منتج
-    </button>
-
-    <button
-      className="admin-back-button"
-      onClick={() => setAdminProductsOpen(false)}
-    >
-      <i className="fa-solid fa-arrow-right" />
-      العودة للوحة التحكم
-    </button>
-
-  </div>
-</div>
+            <p>
+              إدارة المتجر والمنتجات والطلبات
+            </p>
+          </div>
 
           <button
             className="admin-logout-button"
@@ -513,32 +496,42 @@ if (adminUser) {
         <div className="admin-dashboard-grid">
 
           <button
-  className="admin-dashboard-card"
-  onClick={() => setAdminProductsOpen(true)}
->
-  <div className="admin-dashboard-card-icon">
-    <i className="fa-solid fa-box-open" />
-  </div>
+            className="admin-dashboard-card"
+            onClick={() => setAdminProductsOpen(true)}
+          >
+            <div className="admin-dashboard-card-icon">
+              <i className="fa-solid fa-box-open" />
+            </div>
 
-  <h2>المنتجات</h2>
+            <h2>المنتجات</h2>
 
-  <p>إضافة وتعديل وحذف المنتجات</p>
-</button>
+            <p>
+              إضافة وتعديل وحذف المنتجات
+            </p>
+          </button>
 
           <button className="admin-dashboard-card">
             <div className="admin-dashboard-card-icon">
               <i className="fa-solid fa-cart-shopping" />
             </div>
+
             <h2>الطلبات</h2>
-            <p>متابعة وإدارة طلبات العملاء</p>
+
+            <p>
+              متابعة وإدارة طلبات العملاء
+            </p>
           </button>
 
           <button className="admin-dashboard-card">
             <div className="admin-dashboard-card-icon">
               <i className="fa-solid fa-gear" />
             </div>
+
             <h2>إعدادات المتجر</h2>
-            <p>إدارة إعدادات SOCKSY</p>
+
+            <p>
+              إدارة إعدادات SOCKSY
+            </p>
           </button>
 
         </div>
