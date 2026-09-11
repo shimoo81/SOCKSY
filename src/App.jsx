@@ -348,12 +348,73 @@ if (adminUser && adminProductsOpen) {
     <div className="admin-dashboard-page" dir="rtl">
       <div className="admin-dashboard-container">
 
-        <div className="admin-dashboard-header">
-          <div>
-            <div className="eyebrow">SOCKSY ADMIN</div>
-            <h1>إدارة المنتجات</h1>
-            <p>إدارة منتجات متجر SOCKSY</p>
+        <div className="admin-products-grid">
+  {products.length === 0 ? (
+    <div className="admin-empty-products">
+      <i className="fa-solid fa-box-open" />
+      <h2>لا توجد منتجات</h2>
+      <p>لم يتم إضافة أي منتجات إلى المتجر حتى الآن.</p>
+    </div>
+  ) : (
+    products.map((product) => (
+      <div className="admin-product-card" key={product.id}>
+
+        <div className="admin-product-image">
+          {product.image ? (
+            <img
+              src={product.image}
+              alt={product.name}
+            />
+          ) : (
+            <span>🧦</span>
+          )}
+        </div>
+
+        <div className="admin-product-info">
+
+          <div className="admin-product-top">
+            <h2>{product.name}</h2>
+
+            {product.featured && (
+              <span className="admin-featured-badge">
+                ⭐ مميز
+              </span>
+            )}
           </div>
+
+          <p>
+            {product.description || "لا يوجد وصف للمنتج"}
+          </p>
+
+          <div className="admin-product-details">
+
+            <div>
+              <span>السعر</span>
+              <strong>{product.price} جنيه</strong>
+            </div>
+
+            {product.old_price && (
+              <div>
+                <span>السعر القديم</span>
+                <del>{product.old_price} جنيه</del>
+              </div>
+            )}
+
+            <div>
+              <span>التصنيف</span>
+              <strong>
+                {product.category || "غير محدد"}
+              </strong>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    ))
+  )}
+</div>
 
           <button
             className="admin-back-button"
