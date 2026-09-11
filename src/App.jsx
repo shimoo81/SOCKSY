@@ -424,21 +424,6 @@ if (adminUser && adminProductsOpen) {
             العودة للوحة التحكم
           </button>
         </div>
-
-        <div className="admin-dashboard-grid">
-          <div className="admin-dashboard-card">
-            <div className="admin-dashboard-card-icon">
-              <i className="fa-solid fa-box-open" />
-            </div>
-
-            <h2>المنتجات</h2>
-
-            <p>
-              هنا سنضيف لاحقًا إضافة وتعديل وحذف المنتجات.
-            </p>
-          </div>
-        </div>
-
       </div>
     </div>
   );
