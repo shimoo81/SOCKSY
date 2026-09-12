@@ -395,11 +395,37 @@ useEffect(() => {
     }
 
     const sortedOrders = (data || []).sort(
-  (a, b) => Number(a.id) - Number(b.id)
-);
+      (a, b) => Number(a.id) - Number(b.id)
+    );
 
-setAdminOrders(sortedOrders);
-setAdminOrdersCount(sortedOrders.length);
+    setAdminOrders(sortedOrders);
+
+    setAdminOrdersCount(sortedOrders.length);
+
+    setNewOrdersCount(
+      sortedOrders.filter(
+        (order) => (order.status || "new") === "new"
+      ).length
+    );
+
+    setPreparingOrdersCount(
+      sortedOrders.filter(
+        (order) => order.status === "preparing"
+      ).length
+    );
+
+    setCompletedOrdersCount(
+      sortedOrders.filter(
+        (order) => order.status === "completed"
+      ).length
+    );
+
+    setTotalSales(
+      sortedOrders.reduce(
+        (total, order) => total + Number(order.total || 0),
+        0
+      )
+    );
   }
 
   if (adminUser) {
