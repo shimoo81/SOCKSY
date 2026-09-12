@@ -92,6 +92,7 @@ const [adminEmail, setAdminEmail] = useState("");
 const [adminPassword, setAdminPassword] = useState("");
 const [adminLoading, setAdminLoading] = useState(false);
 const [adminProductsOpen, setAdminProductsOpen] = useState(false);
+const [adminAddProductOpen, setAdminAddProductOpen] = useState(false);
 const addToCart = (product) => {
   setCart((current) => {
     const productKey = product.id || product.name;
@@ -343,6 +344,111 @@ const submitOrder = async () => {
 if (!adminChecked) {
   return null;
 }
+if (adminUser && adminAddProductOpen) {
+  return (
+    <div className="admin-dashboard-page" dir="rtl">
+      <div className="admin-dashboard-container">
+
+        <div className="admin-dashboard-header">
+          <div>
+            <div className="eyebrow">SOCKSY ADMIN</div>
+            <h1>إضافة منتج جديد</h1>
+            <p>أضف منتجًا جديدًا إلى متجر SOCKSY</p>
+          </div>
+
+          <button
+            className="admin-back-button"
+            onClick={() => setAdminAddProductOpen(false)}
+          >
+            <i className="fa-solid fa-arrow-right" />
+            العودة للمنتجات
+          </button>
+        </div>
+
+        <div className="admin-product-form">
+
+          <div className="admin-form-group">
+            <label>اسم المنتج</label>
+            <input
+              type="text"
+              placeholder="مثال: شرابات بيضاء كلاسيك"
+            />
+          </div>
+
+          <div className="admin-form-row">
+
+            <div className="admin-form-group">
+              <label>السعر</label>
+              <input
+                type="number"
+                placeholder="99"
+              />
+            </div>
+
+            <div className="admin-form-group">
+              <label>السعر القديم</label>
+              <input
+                type="number"
+                placeholder="130"
+              />
+            </div>
+
+          </div>
+
+          <div className="admin-form-group">
+            <label>التصنيف</label>
+            <input
+              type="text"
+              placeholder="مثال: شرابات قصيرة"
+            />
+          </div>
+
+          <div className="admin-form-group">
+            <label>وصف المنتج</label>
+            <textarea
+              rows="5"
+              placeholder="اكتب وصف المنتج هنا..."
+            />
+          </div>
+
+          <div className="admin-form-group">
+            <label>رابط صورة المنتج</label>
+            <input
+              type="text"
+              placeholder="ضع رابط صورة المنتج"
+            />
+          </div>
+
+          <label className="admin-featured-check">
+            <input type="checkbox" />
+            <span>عرض المنتج كمنتج مميز ⭐</span>
+          </label>
+
+          <div className="admin-form-actions">
+
+            <button
+              className="primary-button"
+              onClick={() => alert("هنوصل الحفظ بـ Supabase في الخطوة التالية")}
+            >
+              <i className="fa-solid fa-floppy-disk" />
+              حفظ المنتج
+            </button>
+
+            <button
+              className="admin-back-button"
+              onClick={() => setAdminAddProductOpen(false)}
+            >
+              إلغاء
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  );
+}
 if (adminUser && adminProductsOpen) {
   return (
     <div className="admin-dashboard-page" dir="rtl">
@@ -359,7 +465,7 @@ if (adminUser && adminProductsOpen) {
 
             <button
               className="admin-add-product-button"
-              onClick={() => alert("فورم إضافة المنتج")}
+              onClick={() => setAdminAddProductOpen(true)}
             >
               <i className="fa-solid fa-plus" />
               إضافة منتج
