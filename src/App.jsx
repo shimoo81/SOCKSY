@@ -93,6 +93,7 @@ const [adminPassword, setAdminPassword] = useState("");
 const [adminLoading, setAdminLoading] = useState(false);
 const [adminProductsOpen, setAdminProductsOpen] = useState(false);
 const [adminOrdersOpen, setAdminOrdersOpen] = useState(false);
+const [adminOrders, setAdminOrders] = useState([]);
 const [adminAddProductOpen, setAdminAddProductOpen] = useState(false);
 const [newProductName, setNewProductName] = useState("");
 const [newProductPrice, setNewProductPrice] = useState("");
