@@ -94,6 +94,7 @@ const [adminLoading, setAdminLoading] = useState(false);
 const [adminProductsOpen, setAdminProductsOpen] = useState(false);
 const [adminOrdersOpen, setAdminOrdersOpen] = useState(false);
 const [adminOrders, setAdminOrders] = useState([]);
+const [adminOrdersCount, setAdminOrdersCount] = useState(0);
 const [adminAddProductOpen, setAdminAddProductOpen] = useState(false);
 const [newProductName, setNewProductName] = useState("");
 const [newProductPrice, setNewProductPrice] = useState("");
@@ -393,9 +394,12 @@ useEffect(() => {
       return;
     }
 
-    setAdminOrders(
-      (data || []).sort((a, b) => Number(a.id) - Number(b.id))
-    );
+    const sortedOrders = (data || []).sort(
+  (a, b) => Number(a.id) - Number(b.id)
+);
+
+setAdminOrders(sortedOrders);
+setAdminOrdersCount(sortedOrders.length);
   }
 
   if (adminUser) {
@@ -1214,7 +1218,7 @@ if (adminUser) {
   <h2>الطلبات</h2>
 
   <div className="admin-dashboard-number">
-    {adminOrders.length}
+   {adminOrdersCount}
   </div>
 
   <p>
