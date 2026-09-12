@@ -291,7 +291,38 @@ const updateProduct = async () => {
     setProductSaving(false);
   }
 };
+const deleteProduct = async (product) => {
+  const confirmed = window.confirm(
+    `هل أنت متأكد من حذف المنتج "${product.name}"؟`
+  );
 
+  if (!confirmed) {
+    return;
+  }
+
+  setProductSaving(true);
+
+  try {
+    const { error } = await supabase
+      .from("products")
+      .delete()
+      .eq("id", product.id);
+
+    if (error) {
+      console.error("Delete product error:", error);
+      alert("حدث خطأ أثناء حذف المنتج.");
+      return;
+    }
+
+    setProducts((current) =>
+      current.filter((item) => item.id !== product.id)
+    );
+
+    alert("تم حذف المنتج بنجاح ✅");
+  } finally {
+    setProductSaving(false);
+  }
+};
 const addToCart = (product) => {
   setCart((current) => {
     const productKey = product.id || product.name;
