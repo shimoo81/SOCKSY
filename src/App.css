@@ -3010,3 +3010,49 @@ button:focus-visible {
     font-size: 19px;
   }
 }
+/* =========================
+   ORDER STATUS COLORS
+========================= */
+.admin-order-status-select {
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+/* جديد */
+.admin-order-status-select[value="new"] {
+  background: #fff4d6;
+  color: #8a5a00;
+  border-color: #efb93b;
+}
+/* تم التأكيد */
+.admin-order-status-select[value="confirmed"] {
+  background: #e7f5ea;
+  color: #287a3e;
+  border-color: #8ac99a;
+}
+/* جاري التجهيز */
+.admin-order-status-select[value="preparing"] {
+  background: #e8f0ff;
+  color: #315fa8;
+  border-color: #9bb9ed;
+}
+/* تم الشحن */
+.admin-order-status-select[value="shipped"] {
+  background: #eee8ff;
+  color: #6546a3;
+  border-color: #b7a4e8;
+}
+/* مكتمل */
+.admin-order-status-select[value="completed"] {
+  background: #dff7ee;
+  color: #176b50;
+  border-color: #82c9b0;
+}
+/* ملغي */
+.admin-order-status-select[value="cancelled"] {
+  background: #fde8e8;
+  color: #a73535;
+  border-color: #e5a0a0;
+}
+.admin-order-status-select:focus {
+  box-shadow: 0 0 0 3px rgba(239, 185, 59, 0.18);
+}
