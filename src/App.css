@@ -2805,3 +2805,33 @@ button:focus-visible {
     width: 100%;
   }
 }
+.admin-product-actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 18px;
+}
+
+.admin-edit-product-button {
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-family: "Cairo", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.25s ease;
+}
+
+.admin-edit-product-button:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.admin-edit-product-button i {
+  font-size: 13px;
+}
