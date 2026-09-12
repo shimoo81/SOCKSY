@@ -916,10 +916,39 @@ if (adminUser && adminOrdersOpen) {
   )}
 </div>
 
-  <span className="admin-order-status">
-    {order.status || "new"}
-  </span>
-</div>
+  <select
+  className="admin-order-status-select"
+  value={order.status || "new"}
+  onChange={async (e) => {
+    const newStatus = e.target.value;
+
+    const { error } = await supabase
+      .from("orders")
+      .update({ status: newStatus })
+      .eq("id", order.id);
+
+    if (error) {
+      console.error("Update order status error:", error);
+      alert("حدث خطأ أثناء تحديث حالة الطلب.");
+      return;
+    }
+
+    setAdminOrders((current) =>
+      current.map((item) =>
+        item.id === order.id
+          ? { ...item, status: newStatus }
+          : item
+      )
+    );
+  }}
+>
+  <option value="new">جديد</option>
+  <option value="confirmed">تم التأكيد</option>
+  <option value="preparing">جاري التجهيز</option>
+  <option value="shipped">تم الشحن</option>
+  <option value="completed">مكتمل</option>
+  <option value="cancelled">ملغي</option>
+</select>
 
                 <div className="admin-order-customer">
                   <h3>بيانات العميل</h3>
