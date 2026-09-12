@@ -393,7 +393,9 @@ useEffect(() => {
       return;
     }
 
-    setAdminOrders(data || []);
+    setAdminOrders(
+  (data || []).sort((a, b) => Number(a.id) - Number(b.id))
+);
   }
 
   if (adminUser) {
