@@ -405,7 +405,7 @@ useEffect(() => {
       const { data, error } = await supabase
         .from("products")
         .select("*")
-        .order("created_at", { ascending: false });
+        .order("created_at", { ascending: true });
 
       if (error) {
         console.error("Supabase error:", error);
@@ -900,15 +900,24 @@ if (adminUser && adminOrdersOpen) {
               >
 
                 <div className="admin-order-header">
-                  <div>
-                    <span>رقم الطلب</span>
-                    <strong>#{order.id}</strong>
-                  </div>
+  <div>
+    <span>رقم الطلب</span>
+    <strong>#{order.id}</strong>
 
-                  <span className="admin-order-status">
-                    {order.status || "new"}
-                  </span>
-                </div>
+    {order.created_at && (
+      <small>
+        {new Date(order.created_at).toLocaleString("ar-EG", {
+          dateStyle: "medium",
+          timeStyle: "short",
+        })}
+      </small>
+    )}
+  </div>
+
+  <span className="admin-order-status">
+    {order.status || "new"}
+  </span>
+</div>
 
                 <div className="admin-order-customer">
                   <h3>بيانات العميل</h3>
