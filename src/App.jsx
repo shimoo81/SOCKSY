@@ -393,7 +393,7 @@ useEffect(() => {
       return;
     }
 
-    console.log("Orders loaded:", data);
+    setAdminOrders(data || []);
   }
 
   if (adminUser) {
