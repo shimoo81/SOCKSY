@@ -901,18 +901,18 @@ if (adminUser && adminOrdersOpen) {
 
                 <div className="admin-order-header">
   <div>
-    <span>رقم الطلب</span>
-    <strong>#{order.id}</strong>
+  <span>رقم الطلب</span>
+  <strong>#{order.id}</strong>
 
-    {order.created_at && (
-      <small>
-        {new Date(order.created_at).toLocaleString("ar-EG", {
-          dateStyle: "medium",
-          timeStyle: "short",
-        })}
-      </small>
-    )}
-  </div>
+  {order.created_at && (
+    <small>
+      {new Date(order.created_at).toLocaleString("ar-EG", {
+        dateStyle: "medium",
+        timeStyle: "short",
+      })}
+    </small>
+  )}
+</div>
 
   <span className="admin-order-status">
     {order.status || "new"}
