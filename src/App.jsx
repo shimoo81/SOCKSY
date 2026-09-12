@@ -92,6 +92,7 @@ const [adminEmail, setAdminEmail] = useState("");
 const [adminPassword, setAdminPassword] = useState("");
 const [adminLoading, setAdminLoading] = useState(false);
 const [adminProductsOpen, setAdminProductsOpen] = useState(false);
+const [adminOrdersOpen, setAdminOrdersOpen] = useState(false);
 const [adminAddProductOpen, setAdminAddProductOpen] = useState(false);
 const [newProductName, setNewProductName] = useState("");
 const [newProductPrice, setNewProductPrice] = useState("");
@@ -1022,7 +1023,10 @@ if (adminUser) {
             </p>
           </button>
 
-          <button className="admin-dashboard-card">
+          <button
+  className="admin-dashboard-card"
+  onClick={() => setAdminOrdersOpen(true)}
+>
             <div className="admin-dashboard-card-icon">
               <i className="fa-solid fa-cart-shopping" />
             </div>
