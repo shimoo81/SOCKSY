@@ -3018,41 +3018,42 @@ button:focus-visible {
   transition: all 0.2s ease;
 }
 /* جديد */
-.admin-order-status-select[value="new"] {
+.admin-order-status-select.status-new {
   background: #fff4d6;
   color: #8a5a00;
   border-color: #efb93b;
 }
 /* تم التأكيد */
-.admin-order-status-select[value="confirmed"] {
+.admin-order-status-select.status-confirmed {
   background: #e7f5ea;
   color: #287a3e;
   border-color: #8ac99a;
 }
 /* جاري التجهيز */
-.admin-order-status-select[value="preparing"] {
+.admin-order-status-select.status-preparing {
   background: #e8f0ff;
   color: #315fa8;
   border-color: #9bb9ed;
 }
 /* تم الشحن */
-.admin-order-status-select[value="shipped"] {
+.admin-order-status-select.status-shipped {
   background: #eee8ff;
   color: #6546a3;
   border-color: #b7a4e8;
 }
 /* مكتمل */
-.admin-order-status-select[value="completed"] {
+.admin-order-status-select.status-completed {
   background: #dff7ee;
   color: #176b50;
   border-color: #82c9b0;
 }
 /* ملغي */
-.admin-order-status-select[value="cancelled"] {
+.admin-order-status-select.status-cancelled {
   background: #fde8e8;
   color: #a73535;
   border-color: #e5a0a0;
 }
 .admin-order-status-select:focus {
+  outline: none;
   box-shadow: 0 0 0 3px rgba(239, 185, 59, 0.18);
 }
