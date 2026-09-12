@@ -3057,3 +3057,10 @@ button:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px rgba(239, 185, 59, 0.18);
 }
+.admin-dashboard-number {
+  font-size: 34px;
+  font-weight: 800;
+  color: #6e4a28;
+  line-height: 1;
+  margin: 8px 0;
+}
