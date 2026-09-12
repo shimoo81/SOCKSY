@@ -405,7 +405,7 @@ useEffect(() => {
       const { data, error } = await supabase
         .from("products")
         .select("*")
-        .order("created_at", { ascending: true });
+        .order("id", { ascending: true })
 
       if (error) {
         console.error("Supabase error:", error);
