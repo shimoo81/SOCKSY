@@ -95,6 +95,10 @@ const [adminProductsOpen, setAdminProductsOpen] = useState(false);
 const [adminOrdersOpen, setAdminOrdersOpen] = useState(false);
 const [adminOrders, setAdminOrders] = useState([]);
 const [adminOrdersCount, setAdminOrdersCount] = useState(0);
+const [newOrdersCount, setNewOrdersCount] = useState(0);
+const [preparingOrdersCount, setPreparingOrdersCount] = useState(0);
+const [completedOrdersCount, setCompletedOrdersCount] = useState(0);
+const [totalSales, setTotalSales] = useState(0);
 const [adminAddProductOpen, setAdminAddProductOpen] = useState(false);
 const [newProductName, setNewProductName] = useState("");
 const [newProductPrice, setNewProductPrice] = useState("");
@@ -1295,13 +1299,6 @@ if (adminUser) {
   </button>
 
 </div>
-
-            <h2>المنتجات</h2>
-
-            <p>
-              إضافة وتعديل وحذف المنتجات
-            </p>
-          </button>
 
           <button
   className="admin-dashboard-card"
