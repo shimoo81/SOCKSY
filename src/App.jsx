@@ -185,32 +185,6 @@ const addNewProduct = async () => {
     setProductSaving(false);
   }
 };
-    ])
-    .select()
-    .single();
-
-  setProductSaving(false);
-
-  if (error) {
-    console.error("Add product error:", error);
-    alert("حدث خطأ أثناء إضافة المنتج.");
-    return;
-  }
-
-  setProducts((current) => [data, ...current]);
-
-  setNewProductName("");
-  setNewProductPrice("");
-  setNewProductOldPrice("");
-  setNewProductCategory("");
-  setNewProductDescription("");
-  setNewProductImage("");
-  setNewProductFeatured(false);
-
-  setAdminAddProductOpen(false);
-
-  alert("تمت إضافة المنتج بنجاح ✅");
-};
 const addToCart = (product) => {
   setCart((current) => {
     const productKey = product.id || product.name;
