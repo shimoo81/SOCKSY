@@ -380,6 +380,25 @@ const cartItemsCount = cart.reduce(
   (total, item) => total + item.quantity,
   0
 );
+useEffect(() => {
+  async function loadOrders() {
+    const { data, error } = await supabase
+      .from("orders")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("Orders error:", error);
+      return;
+    }
+
+    console.log("Orders loaded:", data);
+  }
+
+  if (adminUser) {
+    loadOrders();
+  }
+}, [adminUser]);
   useEffect(() => {
     async function loadProducts() {
       const { data, error } = await supabase
