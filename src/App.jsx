@@ -102,6 +102,14 @@ const [newProductImage, setNewProductImage] = useState("");
 const [newProductImageFile, setNewProductImageFile] = useState(null);
 const [newProductFeatured, setNewProductFeatured] = useState(false);
 const [productSaving, setProductSaving] = useState(false);
+const [editingProduct, setEditingProduct] = useState(null);
+const [editProductName, setEditProductName] = useState("");
+const [editProductPrice, setEditProductPrice] = useState("");
+const [editProductOldPrice, setEditProductOldPrice] = useState("");
+const [editProductCategory, setEditProductCategory] = useState("");
+const [editProductDescription, setEditProductDescription] = useState("");
+const [editProductFeatured, setEditProductFeatured] = useState(false);
+const [editProductImageFile, setEditProductImageFile] = useState(null);
 const addNewProduct = async () => {
   if (
     !newProductName.trim() ||
@@ -180,11 +188,110 @@ const addNewProduct = async () => {
 
     setAdminAddProductOpen(false);
 
-    alert("تمت إضافة المنتج والصورة بنجاح ✅");
+      alert("تمت إضافة المنتج والصورة بنجاح ✅");
   } finally {
     setProductSaving(false);
   }
 };
+
+const startEditingProduct = (product) => {
+  setEditingProduct(product);
+  setEditProductName(product.name || "");
+  setEditProductPrice(product.price || "");
+  setEditProductOldPrice(product.old_price || "");
+  setEditProductCategory(product.category || "");
+  setEditProductDescription(product.description || "");
+  setEditProductFeatured(Boolean(product.featured));
+  setEditProductImageFile(null);
+};
+
+const updateProduct = async () => {
+  if (
+    !editProductName.trim() ||
+    !editProductPrice ||
+    !editProductCategory.trim()
+  ) {
+    alert("من فضلك أدخل اسم المنتج والسعر والتصنيف.");
+    return;
+  }
+
+  setProductSaving(true);
+
+  try {
+    let imageUrl = editingProduct.image || null;
+
+    if (editProductImageFile) {
+      const fileExt = editProductImageFile.name.split(".").pop();
+
+      const fileName = `${Date.now()}-${Math.random()
+        .toString(36)
+        .substring(2)}.${fileExt}`;
+
+      const filePath = `products/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from("product-images")
+        .upload(filePath, editProductImageFile);
+
+      if (uploadError) {
+        console.error("Edit image upload error:", uploadError);
+        alert("حدث خطأ أثناء رفع الصورة الجديدة.");
+        return;
+      }
+
+      const {
+        data: { publicUrl },
+      } = supabase.storage
+        .from("product-images")
+        .getPublicUrl(filePath);
+
+      imageUrl = publicUrl;
+    }
+
+    const { data, error } = await supabase
+      .from("products")
+      .update({
+        name: editProductName.trim(),
+        price: Number(editProductPrice),
+        old_price: editProductOldPrice
+          ? Number(editProductOldPrice)
+          : null,
+        category: editProductCategory.trim(),
+        description: editProductDescription.trim(),
+        image: imageUrl,
+        featured: editProductFeatured,
+      })
+      .eq("id", editingProduct.id)
+      .select()
+      .single();
+
+    if (error) {
+      console.error("Update product error:", error);
+      alert("حدث خطأ أثناء تحديث المنتج.");
+      return;
+    }
+
+    setProducts((current) =>
+      current.map((product) =>
+        product.id === data.id ? data : product
+      )
+    );
+
+    setEditingProduct(null);
+    setEditProductName("");
+    setEditProductPrice("");
+    setEditProductOldPrice("");
+    setEditProductCategory("");
+    setEditProductDescription("");
+    setEditProductFeatured(false);
+    setEditProductImageFile(null);
+
+    alert("تم تعديل المنتج بنجاح ✅");
+  } finally {
+    setProductSaving(false);
+  }
+};
+
 const addToCart = (product) => {
   setCart((current) => {
     const productKey = product.id || product.name;
@@ -210,7 +317,6 @@ const addToCart = (product) => {
     ];
   });
 };
-
 const increaseQuantity = (productKey) => {
   setCart((current) =>
     current.map((item) =>
@@ -435,6 +541,140 @@ const submitOrder = async () => {
 };
 if (!adminChecked) {
   return null;
+}
+if (adminUser && editingProduct) {
+  return (
+    <div className="admin-dashboard-page" dir="rtl">
+      <div className="admin-dashboard-container">
+
+        <div className="admin-dashboard-header">
+          <div>
+            <div className="eyebrow">SOCKSY ADMIN</div>
+            <h1>تعديل المنتج</h1>
+            <p>تعديل بيانات المنتج في متجر SOCKSY</p>
+          </div>
+
+          <button
+            className="admin-back-button"
+            onClick={() => setEditingProduct(null)}
+          >
+            <i className="fa-solid fa-arrow-right" />
+            العودة للمنتجات
+          </button>
+        </div>
+
+        <div className="admin-product-form">
+
+          <div className="admin-form-group">
+            <label>اسم المنتج</label>
+            <input
+              type="text"
+              value={editProductName}
+              onChange={(e) => setEditProductName(e.target.value)}
+            />
+          </div>
+
+          <div className="admin-form-row">
+
+            <div className="admin-form-group">
+              <label>السعر</label>
+              <input
+                type="number"
+                value={editProductPrice}
+                onChange={(e) => setEditProductPrice(e.target.value)}
+              />
+            </div>
+
+            <div className="admin-form-group">
+              <label>السعر القديم</label>
+              <input
+                type="number"
+                value={editProductOldPrice}
+                onChange={(e) => setEditProductOldPrice(e.target.value)}
+              />
+            </div>
+
+          </div>
+
+          <div className="admin-form-group">
+            <label>التصنيف</label>
+            <input
+              type="text"
+              value={editProductCategory}
+              onChange={(e) => setEditProductCategory(e.target.value)}
+            />
+          </div>
+
+          <div className="admin-form-group">
+            <label>وصف المنتج</label>
+            <textarea
+              rows="5"
+              value={editProductDescription}
+              onChange={(e) => setEditProductDescription(e.target.value)}
+            />
+          </div>
+
+          <div className="admin-form-group">
+            <label>الصورة الجديدة (اختياري)</label>
+
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                const file = e.target.files?.[0] || null;
+                setEditProductImageFile(file);
+              }}
+            />
+
+            {editProductImageFile && (
+              <p
+                style={{
+                  margin: 0,
+                  color: "var(--muted)",
+                  fontSize: "13px",
+                }}
+              >
+                تم اختيار الصورة: {editProductImageFile.name}
+              </p>
+            )}
+          </div>
+
+          <label className="admin-featured-check">
+            <input
+              type="checkbox"
+              checked={editProductFeatured}
+              onChange={(e) =>
+                setEditProductFeatured(e.target.checked)
+              }
+            />
+            <span>عرض المنتج كمنتج مميز ⭐</span>
+          </label>
+
+          <div className="admin-form-actions">
+
+            <button
+              className="primary-button"
+              onClick={updateProduct}
+              disabled={productSaving}
+            >
+              <i className="fa-solid fa-floppy-disk" />
+              {productSaving ? "جاري الحفظ..." : "حفظ التعديلات"}
+            </button>
+
+            <button
+              className="admin-back-button"
+              onClick={() => setEditingProduct(null)}
+            >
+              إلغاء
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  );
 }
 if (adminUser && adminAddProductOpen) {
   return (
@@ -675,7 +915,15 @@ if (adminUser && adminProductsOpen) {
                   </div>
 
                 </div>
-
+                <div className="admin-product-actions">
+                  <button
+                    className="admin-edit-product-button"
+                    onClick={() => startEditingProduct(product)}
+                  >
+                    <i className="fa-solid fa-pen" />
+                    تعديل
+                  </button>
+                </div>
               </div>
             ))
           )}
