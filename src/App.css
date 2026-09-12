@@ -2807,31 +2807,35 @@ button:focus-visible {
 }
 .admin-product-actions {
   display: flex;
-  justify-content: flex-start;
-  margin-top: 18px;
+  width: 100%;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #e7d6b8;
 }
 
 .admin-edit-product-button {
-  border: none;
-  background: var(--accent);
-  color: #fff;
-  padding: 10px 18px;
-  border-radius: 12px;
-  font-family: "Cairo", sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  transition: 0.25s ease;
+  width: 100%;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  background: #6e4a28;
+  color: #ffffff;
+  font-family: "Cairo", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
 
 .admin-edit-product-button:hover {
+  background: #3e2a16;
   transform: translateY(-2px);
-  opacity: 0.9;
 }
 
 .admin-edit-product-button i {
-  font-size: 13px;
+  font-size: 14px;
 }
