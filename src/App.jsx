@@ -917,7 +917,7 @@ if (adminUser && adminOrdersOpen) {
 </div>
 
   <select
-  className="admin-order-status-select"
+  className={`admin-order-status-select status-${order.status || "new"}`}
   value={order.status || "new"}
   onChange={async (e) => {
     const newStatus = e.target.value;
