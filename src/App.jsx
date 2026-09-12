@@ -947,14 +947,25 @@ if (adminUser && adminProductsOpen) {
 
                 </div>
                 <div className="admin-product-actions">
-                  <button
-                    className="admin-edit-product-button"
-                    onClick={() => startEditingProduct(product)}
-                  >
-                    <i className="fa-solid fa-pen" />
-                    تعديل
-                  </button>
-                </div>
+
+  <button
+    className="admin-edit-product-button"
+    onClick={() => startEditingProduct(product)}
+  >
+    <i className="fa-solid fa-pen" />
+    تعديل
+  </button>
+
+  <button
+    className="admin-delete-product-button"
+    onClick={() => deleteProduct(product)}
+    disabled={productSaving}
+  >
+    <i className="fa-solid fa-trash" />
+    حذف
+  </button>
+
+</div>
               </div>
             ))
           )}
