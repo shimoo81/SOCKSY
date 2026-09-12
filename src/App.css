@@ -2839,3 +2839,35 @@ button:focus-visible {
 .admin-edit-product-button i {
   font-size: 14px;
 }
+.admin-delete-product-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  background: #b23a2b;
+  color: #ffffff;
+  font-family: "Cairo", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.admin-delete-product-button:hover {
+  background: #8f2d22;
+  transform: translateY(-2px);
+}
+
+.admin-delete-product-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.admin-delete-product-button i {
+  font-size: 14px;
+}
