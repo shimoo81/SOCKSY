@@ -1300,39 +1300,6 @@ if (adminUser) {
 
 </div>
 
-          <button
-  className="admin-dashboard-card"
-  onClick={() => setAdminOrdersOpen(true)}
->
-  <div className="admin-dashboard-card-icon">
-    <i className="fa-solid fa-cart-shopping" />
-  </div>
-
-  <h2>الطلبات</h2>
-
-  <div className="admin-dashboard-number">
-   {adminOrdersCount}
-  </div>
-
-  <p>
-    إجمالي الطلبات
-  </p>
-</button>
-
-          <button className="admin-dashboard-card">
-            <div className="admin-dashboard-card-icon">
-              <i className="fa-solid fa-gear" />
-            </div>
-
-            <h2>إعدادات المتجر</h2>
-
-            <p>
-              إدارة إعدادات SOCKSY
-            </p>
-          </button>
-
-        </div>
-
         <button
           className="admin-back-button"
           onClick={() => setAdminUser(null)}
