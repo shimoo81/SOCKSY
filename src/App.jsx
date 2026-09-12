@@ -421,12 +421,24 @@ useEffect(() => {
     );
 
     setCompletedOrdersCount(
-      sortedOrders.filter(
-        (order) => order.status === "completed"
-      ).length
-    );
+  sortedOrders.filter(
+    (order) => order.status === "completed"
+  ).length
+);
 
-    setTotalSales(
+setShippedOrdersCount(
+  sortedOrders.filter(
+    (order) => order.status === "shipped"
+  ).length
+);
+
+setCancelledOrdersCount(
+  sortedOrders.filter(
+    (order) => order.status === "cancelled"
+  ).length
+);
+
+setTotalSales(
       sortedOrders.reduce(
         (total, order) => total + Number(order.total || 0),
         0
@@ -1283,7 +1295,34 @@ if (adminUser) {
       {completedOrdersCount}
     </div>
   </button>
+<button
+  className="admin-dashboard-card"
+  onClick={() => setAdminOrdersOpen(true)}
+>
+  <div className="admin-dashboard-card-icon">
+    <i className="fa-solid fa-truck" />
+  </div>
 
+  <h2>الطلبات تم الشحن</h2>
+
+  <div className="admin-dashboard-number">
+    {shippedOrdersCount}
+  </div>
+</button>
+<button
+  className="admin-dashboard-card"
+  onClick={() => setAdminOrdersOpen(true)}
+>
+  <div className="admin-dashboard-card-icon">
+    <i className="fa-solid fa-circle-xmark" />
+  </div>
+
+  <h2>الطلبات الملغية</h2>
+
+  <div className="admin-dashboard-number">
+    {cancelledOrdersCount}
+  </div>
+</button>
   <button
     className="admin-dashboard-card"
     onClick={() => setAdminOrdersOpen(true)}
