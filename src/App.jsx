@@ -1218,13 +1218,83 @@ if (adminUser) {
 
         <div className="admin-dashboard-grid">
 
-          <button
-            className="admin-dashboard-card"
-            onClick={() => setAdminProductsOpen(true)}
-          >
-            <div className="admin-dashboard-card-icon">
-              <i className="fa-solid fa-box-open" />
-            </div>
+  <button
+    className="admin-dashboard-card"
+    onClick={() => setAdminOrdersOpen(true)}
+  >
+    <div className="admin-dashboard-card-icon">
+      <i className="fa-solid fa-cart-shopping" />
+    </div>
+
+    <h2>إجمالي الطلبات</h2>
+
+    <div className="admin-dashboard-number">
+      {adminOrdersCount}
+    </div>
+  </button>
+
+  <button
+    className="admin-dashboard-card"
+    onClick={() => setAdminOrdersOpen(true)}
+  >
+    <div className="admin-dashboard-card-icon">
+      <i className="fa-solid fa-bell" />
+    </div>
+
+    <h2>الطلبات الجديدة</h2>
+
+    <div className="admin-dashboard-number">
+      {newOrdersCount}
+    </div>
+  </button>
+
+  <button
+    className="admin-dashboard-card"
+    onClick={() => setAdminOrdersOpen(true)}
+  >
+    <div className="admin-dashboard-card-icon">
+      <i className="fa-solid fa-box-open" />
+    </div>
+
+    <h2>الطلبات قيد التجهيز</h2>
+
+    <div className="admin-dashboard-number">
+      {preparingOrdersCount}
+    </div>
+  </button>
+
+  <button
+    className="admin-dashboard-card"
+    onClick={() => setAdminOrdersOpen(true)}
+  >
+    <div className="admin-dashboard-card-icon">
+      <i className="fa-solid fa-circle-check" />
+    </div>
+
+    <h2>الطلبات المكتملة</h2>
+
+    <div className="admin-dashboard-number">
+      {completedOrdersCount}
+    </div>
+  </button>
+
+  <button
+    className="admin-dashboard-card"
+    onClick={() => setAdminOrdersOpen(true)}
+  >
+    <div className="admin-dashboard-card-icon">
+      <i className="fa-solid fa-money-bill-wave" />
+    </div>
+
+    <h2>إجمالي المبيعات</h2>
+
+    <div className="admin-dashboard-number">
+      {totalSales.toLocaleString("ar-EG")}
+      <span className="admin-dashboard-currency"> جنيه</span>
+    </div>
+  </button>
+
+</div>
 
             <h2>المنتجات</h2>
 
