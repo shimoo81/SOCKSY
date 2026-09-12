@@ -99,6 +99,7 @@ const [newProductOldPrice, setNewProductOldPrice] = useState("");
 const [newProductCategory, setNewProductCategory] = useState("");
 const [newProductDescription, setNewProductDescription] = useState("");
 const [newProductImage, setNewProductImage] = useState("");
+const [newProductImageFile, setNewProductImageFile] = useState(null);
 const [newProductFeatured, setNewProductFeatured] = useState(false);
 const [productSaving, setProductSaving] = useState(false);
 const addNewProduct = async () => {
@@ -111,22 +112,79 @@ const addNewProduct = async () => {
     return;
   }
 
+  if (!newProductImageFile) {
+    alert("من فضلك اختر صورة للمنتج.");
+    return;
+  }
+
   setProductSaving(true);
 
-  const { data, error } = await supabase
-    .from("products")
-    .insert([
-      {
-        name: newProductName.trim(),
-        price: Number(newProductPrice),
-        old_price: newProductOldPrice
-          ? Number(newProductOldPrice)
-          : null,
-        category: newProductCategory.trim(),
-        description: newProductDescription.trim(),
-        image: newProductImage.trim(),
-        featured: newProductFeatured,
-      },
+  try {
+    const fileExt = newProductImageFile.name.split(".").pop();
+    const fileName = `${Date.now()}-${Math.random()
+      .toString(36)
+      .substring(2)}.${fileExt}`;
+
+    const filePath = `products/${fileName}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("product-images")
+      .upload(filePath, newProductImageFile);
+
+    if (uploadError) {
+      console.error("Image upload error:", uploadError);
+      alert("حدث خطأ أثناء رفع صورة المنتج.");
+      return;
+    }
+
+    const {
+      data: { publicUrl },
+    } = supabase.storage
+      .from("product-images")
+      .getPublicUrl(filePath);
+
+    const { data, error } = await supabase
+      .from("products")
+      .insert([
+        {
+          name: newProductName.trim(),
+          price: Number(newProductPrice),
+          old_price: newProductOldPrice
+            ? Number(newProductOldPrice)
+            : null,
+          category: newProductCategory.trim(),
+          description: newProductDescription.trim(),
+          image: publicUrl,
+          featured: newProductFeatured,
+        },
+      ])
+      .select()
+      .single();
+
+    if (error) {
+      console.error("Add product error:", error);
+      alert("تم رفع الصورة لكن حدث خطأ أثناء حفظ المنتج.");
+      return;
+    }
+
+    setProducts((current) => [data, ...current]);
+
+    setNewProductName("");
+    setNewProductPrice("");
+    setNewProductOldPrice("");
+    setNewProductCategory("");
+    setNewProductDescription("");
+    setNewProductImage("");
+    setNewProductImageFile(null);
+    setNewProductFeatured(false);
+
+    setAdminAddProductOpen(false);
+
+    alert("تمت إضافة المنتج والصورة بنجاح ✅");
+  } finally {
+    setProductSaving(false);
+  }
+};
     ])
     .select()
     .single();
@@ -482,14 +540,23 @@ if (adminUser && adminAddProductOpen) {
           </div>
 
           <div className="admin-form-group">
-            <label>رابط صورة المنتج</label>
-            <input
-  type="text"
-  placeholder="ضع رابط صورة المنتج"
-  value={newProductImage}
-  onChange={(e) => setNewProductImage(e.target.value)}
-/>
-          </div>
+  <label>صورة المنتج</label>
+
+  <input
+    type="file"
+    accept="image/*"
+    onChange={(e) => {
+      const file = e.target.files?.[0] || null;
+      setNewProductImageFile(file);
+    }}
+  />
+
+  {newProductImageFile && (
+    <p style={{ margin: 0, color: "var(--muted)", fontSize: "13px" }}>
+      تم اختيار الصورة: {newProductImageFile.name}
+    </p>
+  )}
+</div>
 
           <label className="admin-featured-check">
             <input
