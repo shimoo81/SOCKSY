@@ -859,6 +859,126 @@ if (adminUser && adminAddProductOpen) {
     </div>
   );
 }
+if (adminUser && adminOrdersOpen) {
+  return (
+    <div className="admin-dashboard-page" dir="rtl">
+      <div className="admin-dashboard-container">
+
+        <div className="admin-dashboard-header">
+          <div>
+            <div className="eyebrow">SOCKSY ADMIN</div>
+            <h1>إدارة الطلبات</h1>
+            <p>متابعة وإدارة طلبات العملاء</p>
+          </div>
+
+          <button
+            className="admin-back-button"
+            onClick={() => setAdminOrdersOpen(false)}
+          >
+            <i className="fa-solid fa-arrow-right" />
+            العودة للوحة التحكم
+          </button>
+        </div>
+
+        <div className="admin-orders-grid">
+
+          {adminOrders.length === 0 ? (
+            <div className="admin-empty-products">
+              <i className="fa-solid fa-receipt" />
+
+              <h2>لا توجد طلبات</h2>
+
+              <p>
+                لم يتم استلام أي طلبات حتى الآن.
+              </p>
+            </div>
+          ) : (
+            adminOrders.map((order) => (
+              <div
+                className="admin-order-card"
+                key={order.id}
+              >
+
+                <div className="admin-order-header">
+                  <div>
+                    <span>رقم الطلب</span>
+                    <strong>#{order.id}</strong>
+                  </div>
+
+                  <span className="admin-order-status">
+                    {order.status || "new"}
+                  </span>
+                </div>
+
+                <div className="admin-order-customer">
+                  <h3>بيانات العميل</h3>
+
+                  <p>
+                    <strong>الاسم:</strong>{" "}
+                    {order.customer_name}
+                  </p>
+
+                  <p>
+                    <strong>الهاتف:</strong>{" "}
+                    {order.phone}
+                  </p>
+
+                  <p>
+                    <strong>المحافظة:</strong>{" "}
+                    {order.governorate}
+                  </p>
+
+                  <p>
+                    <strong>العنوان:</strong>{" "}
+                    {order.address}
+                  </p>
+
+                  {order.notes && (
+                    <p>
+                      <strong>ملاحظات:</strong>{" "}
+                      {order.notes}
+                    </p>
+                  )}
+                </div>
+
+                <div className="admin-order-items">
+                  <h3>المنتجات</h3>
+
+                  {Array.isArray(order.items) &&
+                    order.items.map((item, index) => (
+                      <div
+                        className="admin-order-item"
+                        key={index}
+                      >
+                        <span>
+                          {item.name}
+                        </span>
+
+                        <span>
+                          {item.quantity} × {item.price} جنيه
+                        </span>
+                      </div>
+                    ))}
+                </div>
+
+                <div className="admin-order-total">
+                  <span>إجمالي الطلب</span>
+
+                  <strong>
+                    {order.total} جنيه
+                  </strong>
+                </div>
+
+              </div>
+            ))
+          )}
+
+        </div>
+
+      </div>
+    </div>
+  );
+}
 if (adminUser && adminProductsOpen) {
   return (
     <div className="admin-dashboard-page" dir="rtl">
