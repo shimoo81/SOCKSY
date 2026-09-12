@@ -93,6 +93,66 @@ const [adminPassword, setAdminPassword] = useState("");
 const [adminLoading, setAdminLoading] = useState(false);
 const [adminProductsOpen, setAdminProductsOpen] = useState(false);
 const [adminAddProductOpen, setAdminAddProductOpen] = useState(false);
+const [newProductName, setNewProductName] = useState("");
+const [newProductPrice, setNewProductPrice] = useState("");
+const [newProductOldPrice, setNewProductOldPrice] = useState("");
+const [newProductCategory, setNewProductCategory] = useState("");
+const [newProductDescription, setNewProductDescription] = useState("");
+const [newProductImage, setNewProductImage] = useState("");
+const [newProductFeatured, setNewProductFeatured] = useState(false);
+const [productSaving, setProductSaving] = useState(false);
+const addNewProduct = async () => {
+  if (
+    !newProductName.trim() ||
+    !newProductPrice ||
+    !newProductCategory.trim()
+  ) {
+    alert("من فضلك أدخل اسم المنتج والسعر والتصنيف.");
+    return;
+  }
+
+  setProductSaving(true);
+
+  const { data, error } = await supabase
+    .from("products")
+    .insert([
+      {
+        name: newProductName.trim(),
+        price: Number(newProductPrice),
+        old_price: newProductOldPrice
+          ? Number(newProductOldPrice)
+          : null,
+        category: newProductCategory.trim(),
+        description: newProductDescription.trim(),
+        image: newProductImage.trim(),
+        featured: newProductFeatured,
+      },
+    ])
+    .select()
+    .single();
+
+  setProductSaving(false);
+
+  if (error) {
+    console.error("Add product error:", error);
+    alert("حدث خطأ أثناء إضافة المنتج.");
+    return;
+  }
+
+  setProducts((current) => [data, ...current]);
+
+  setNewProductName("");
+  setNewProductPrice("");
+  setNewProductOldPrice("");
+  setNewProductCategory("");
+  setNewProductDescription("");
+  setNewProductImage("");
+  setNewProductFeatured(false);
+
+  setAdminAddProductOpen(false);
+
+  alert("تمت إضافة المنتج بنجاح ✅");
+};
 const addToCart = (product) => {
   setCart((current) => {
     const productKey = product.id || product.name;
@@ -370,9 +430,11 @@ if (adminUser && adminAddProductOpen) {
           <div className="admin-form-group">
             <label>اسم المنتج</label>
             <input
-              type="text"
-              placeholder="مثال: شرابات بيضاء كلاسيك"
-            />
+  type="text"
+  placeholder="مثال: شرابات بيضاء كلاسيك"
+  value={newProductName}
+  onChange={(e) => setNewProductName(e.target.value)}
+/>
           </div>
 
           <div className="admin-form-row">
@@ -380,17 +442,21 @@ if (adminUser && adminAddProductOpen) {
             <div className="admin-form-group">
               <label>السعر</label>
               <input
-                type="number"
-                placeholder="99"
-              />
+  type="number"
+  placeholder="99"
+  value={newProductPrice}
+  onChange={(e) => setNewProductPrice(e.target.value)}
+/>
             </div>
 
             <div className="admin-form-group">
               <label>السعر القديم</label>
               <input
-                type="number"
-                placeholder="130"
-              />
+  type="number"
+  placeholder="130"
+  value={newProductOldPrice}
+  onChange={(e) => setNewProductOldPrice(e.target.value)}
+/>
             </div>
 
           </div>
@@ -398,41 +464,52 @@ if (adminUser && adminAddProductOpen) {
           <div className="admin-form-group">
             <label>التصنيف</label>
             <input
-              type="text"
-              placeholder="مثال: شرابات قصيرة"
-            />
+  type="text"
+  placeholder="مثال: شرابات قصيرة"
+  value={newProductCategory}
+  onChange={(e) => setNewProductCategory(e.target.value)}
+/>
           </div>
 
           <div className="admin-form-group">
             <label>وصف المنتج</label>
             <textarea
-              rows="5"
-              placeholder="اكتب وصف المنتج هنا..."
-            />
+  rows="5"
+  placeholder="اكتب وصف المنتج هنا..."
+  value={newProductDescription}
+  onChange={(e) => setNewProductDescription(e.target.value)}
+/>
           </div>
 
           <div className="admin-form-group">
             <label>رابط صورة المنتج</label>
             <input
-              type="text"
-              placeholder="ضع رابط صورة المنتج"
-            />
+  type="text"
+  placeholder="ضع رابط صورة المنتج"
+  value={newProductImage}
+  onChange={(e) => setNewProductImage(e.target.value)}
+/>
           </div>
 
           <label className="admin-featured-check">
-            <input type="checkbox" />
+            <input
+  type="checkbox"
+  checked={newProductFeatured}
+  onChange={(e) => setNewProductFeatured(e.target.checked)}
+/>
             <span>عرض المنتج كمنتج مميز ⭐</span>
           </label>
 
           <div className="admin-form-actions">
 
             <button
-              className="primary-button"
-              onClick={() => alert("هنوصل الحفظ بـ Supabase في الخطوة التالية")}
-            >
-              <i className="fa-solid fa-floppy-disk" />
-              حفظ المنتج
-            </button>
+  className="primary-button"
+  onClick={addNewProduct}
+  disabled={productSaving}
+>
+  <i className="fa-solid fa-floppy-disk" />
+  {productSaving ? "جاري الحفظ..." : "حفظ المنتج"}
+</button>
 
             <button
               className="admin-back-button"
