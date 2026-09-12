@@ -359,9 +359,7 @@ if (adminUser && adminProductsOpen) {
 
             <button
               className="admin-add-product-button"
-              onClick={() =>
-                alert("سنضيف فورم المنتج هنا في الخطوة التالية")
-              }
+              onClick={() => alert("فورم إضافة المنتج")}
             >
               <i className="fa-solid fa-plus" />
               إضافة منتج
