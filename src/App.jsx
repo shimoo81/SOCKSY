@@ -949,7 +949,7 @@ if (adminUser && adminOrdersOpen) {
   <option value="completed">مكتمل</option>
   <option value="cancelled">ملغي</option>
 </select>
-
+</div>
                 <div className="admin-order-customer">
                   <h3>بيانات العميل</h3>
 
