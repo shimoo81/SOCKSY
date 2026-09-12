@@ -1207,16 +1207,20 @@ if (adminUser) {
   className="admin-dashboard-card"
   onClick={() => setAdminOrdersOpen(true)}
 >
-            <div className="admin-dashboard-card-icon">
-              <i className="fa-solid fa-cart-shopping" />
-            </div>
+  <div className="admin-dashboard-card-icon">
+    <i className="fa-solid fa-cart-shopping" />
+  </div>
 
-            <h2>الطلبات</h2>
+  <h2>الطلبات</h2>
 
-            <p>
-              متابعة وإدارة طلبات العملاء
-            </p>
-          </button>
+  <div className="admin-dashboard-number">
+    {adminOrders.length}
+  </div>
+
+  <p>
+    إجمالي الطلبات
+  </p>
+</button>
 
           <button className="admin-dashboard-card">
             <div className="admin-dashboard-card-icon">
