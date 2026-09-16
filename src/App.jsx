@@ -1021,11 +1021,13 @@ if (adminUser && adminOrdersOpen) {
     );
 
     setTotalSales(
-      updatedOrders.reduce(
-        (total, item) => total + Number(item.total || 0),
-        0
-      )
-    );
+  updatedOrders
+    .filter((item) => item.status !== "cancelled")
+    .reduce(
+      (total, item) => total + Number(item.total || 0),
+      0
+    )
+);
 
     return updatedOrders;
   });
