@@ -101,6 +101,7 @@ const [completedOrdersCount, setCompletedOrdersCount] = useState(0);
 const [shippedOrdersCount, setShippedOrdersCount] = useState(0);
 const [cancelledOrdersCount, setCancelledOrdersCount] = useState(0);
 const [totalSales, setTotalSales] = useState(0);
+const [totalProductsSold, setTotalProductsSold] = useState(0);
 const [adminAddProductOpen, setAdminAddProductOpen] = useState(false);
 const [newProductName, setNewProductName] = useState("");
 const [newProductPrice, setNewProductPrice] = useState("");
@@ -1028,6 +1029,21 @@ if (adminUser && adminOrdersOpen) {
       0
     )
 );
+setTotalProductsSold(
+  updatedOrders
+    .filter((item) => item.status !== "cancelled")
+    .reduce(
+      (total, order) =>
+        total +
+        (Array.isArray(order.items)
+          ? order.items.reduce(
+              (sum, item) => sum + Number(item.quantity || 0),
+              0
+            )
+          : 0),
+      0
+    )
+);
 
     return updatedOrders;
   });
@@ -1381,6 +1397,21 @@ if (adminUser) {
       <span className="admin-dashboard-currency"> جنيه</span>
     </div>
   </button>
+  <button
+  className="admin-dashboard-card"
+  onClick={() => setAdminOrdersOpen(true)}
+>
+  <div className="admin-dashboard-card-icon">
+    <i className="fa-solid fa-socks" />
+  </div>
+
+  <h2>إجمالي المنتجات المباعة</h2>
+
+  <div className="admin-dashboard-number">
+    {totalProductsSold.toLocaleString("ar-EG")}
+    <span className="admin-dashboard-currency"> قطعة</span>
+  </div>
+</button>
 
 </div>
 
