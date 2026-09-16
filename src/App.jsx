@@ -968,27 +968,68 @@ if (adminUser && adminOrdersOpen) {
   className={`admin-order-status-select status-${order.status || "new"}`}
   value={order.status || "new"}
   onChange={async (e) => {
-    const newStatus = e.target.value;
+  const newStatus = e.target.value;
 
-    const { error } = await supabase
-      .from("orders")
-      .update({ status: newStatus })
-      .eq("id", order.id);
+  const { error } = await supabase
+    .from("orders")
+    .update({ status: newStatus })
+    .eq("id", order.id);
 
-    if (error) {
-      console.error("Update order status error:", error);
-      alert("حدث خطأ أثناء تحديث حالة الطلب.");
-      return;
-    }
+  if (error) {
+    console.error("Update order status error:", error);
+    alert("حدث خطأ أثناء تحديث حالة الطلب.");
+    return;
+  }
 
-    setAdminOrders((current) =>
-      current.map((item) =>
-        item.id === order.id
-          ? { ...item, status: newStatus }
-          : item
+  setAdminOrders((current) => {
+    const updatedOrders = current.map((item) =>
+      item.id === order.id
+        ? { ...item, status: newStatus }
+        : item
+    );
+
+    setAdminOrdersCount(updatedOrders.length);
+
+    setNewOrdersCount(
+      updatedOrders.filter(
+        (item) => (item.status || "new") === "new"
+      ).length
+    );
+
+    setPreparingOrdersCount(
+      updatedOrders.filter(
+        (item) => item.status === "preparing"
+      ).length
+    );
+
+    setCompletedOrdersCount(
+      updatedOrders.filter(
+        (item) => item.status === "completed"
+      ).length
+    );
+
+    setShippedOrdersCount(
+      updatedOrders.filter(
+        (item) => item.status === "shipped"
+      ).length
+    );
+
+    setCancelledOrdersCount(
+      updatedOrders.filter(
+        (item) => item.status === "cancelled"
+      ).length
+    );
+
+    setTotalSales(
+      updatedOrders.reduce(
+        (total, item) => total + Number(item.total || 0),
+        0
       )
     );
-  }}
+
+    return updatedOrders;
+  });
+}}
 >
   <option value="new">جديد</option>
   <option value="confirmed">تم التأكيد</option>
