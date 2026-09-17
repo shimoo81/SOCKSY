@@ -703,10 +703,14 @@ const submitOrder = async () => {
   setOrderSubmitting(false);
 
   if (error) {
-    console.error("Order submission error:", error);
-    alert("حصلت مشكلة أثناء إرسال الطلب. حاول مرة أخرى.");
-    return;
-  }
+  console.error("Order submission error:", error);
+
+  alert(
+    `خطأ أثناء إرسال الطلب:\n\n${error.message}\n\n${error.details || ""}`
+  );
+
+  return;
+}
 
   setOrderSuccess(true);
 
