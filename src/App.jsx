@@ -1721,9 +1721,12 @@ return orderSuccess ? (
           )}
         </div>
 
-       <button
+      <button
   className="primary-button"
-  onClick={() => addToCart(selectedProduct)}
+  onClick={() => {
+    addToCart(selectedProduct);
+    showSiteMessage("تمت إضافة المنتج للسلة بنجاح 🛒", "success");
+  }}
 >
   أضف للسلة
   <i className="fa-solid fa-bag-shopping" />
