@@ -1730,9 +1730,7 @@ return orderSuccess ? (
 </button>
       </div>
     </div>
-        </div>
-    </div>
-
+    
     {cartItemsCount > 0 && (
       <div className="floating-cart-bar">
         <div className="floating-cart-info">
