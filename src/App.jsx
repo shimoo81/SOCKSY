@@ -1030,6 +1030,21 @@ if (adminUser && adminOrdersOpen) {
     )
 );
 setTotalProductsSold(
+  sortedOrders
+    .filter((item) => item.status !== "cancelled")
+    .reduce(
+      (total, order) =>
+        total +
+        (Array.isArray(order.items)
+          ? order.items.reduce(
+              (sum, item) => sum + Number(item.quantity || 0),
+              0
+            )
+          : 0),
+      0
+    )
+);
+setTotalProductsSold(
   updatedOrders
     .filter((item) => item.status !== "cancelled")
     .reduce(
