@@ -121,20 +121,33 @@ const [editProductCategory, setEditProductCategory] = useState("");
 const [editProductDescription, setEditProductDescription] = useState("");
 const [editProductFeatured, setEditProductFeatured] = useState(false);
 const [editProductImageFile, setEditProductImageFile] = useState(null);
+const [siteMessage, setSiteMessage] = useState("");
+const [siteMessageType, setSiteMessageType] = useState("info");
+const showSiteMessage = (message, type = "info") => {
+  setSiteMessage(message);
+  setSiteMessageType(type);
+
+  setTimeout(() => {
+    setSiteMessage("");
+  }, 3000);
+};
 const addNewProduct = async () => {
   if (
-    !newProductName.trim() ||
-    !newProductPrice ||
-    !newProductCategory.trim()
-  ) {
-    alert("من فضلك أدخل اسم المنتج والسعر والتصنيف.");
-    return;
-  }
+  !newProductName.trim() ||
+  !newProductPrice ||
+  !newProductCategory.trim()
+) {
+  showSiteMessage(
+    "من فضلك أدخل اسم المنتج والسعر والتصنيف.",
+    "error"
+  );
+  return;
+}
 
   if (!newProductImageFile) {
-    alert("من فضلك اختر صورة للمنتج.");
-    return;
-  }
+  showSiteMessage("من فضلك اختر صورة للمنتج.", "error");
+  return;
+}
 
   setProductSaving(true);
 
@@ -152,7 +165,7 @@ const addNewProduct = async () => {
 
     if (uploadError) {
       console.error("Image upload error:", uploadError);
-      alert("حدث خطأ أثناء رفع صورة المنتج.");
+      showSiteMessage("حدث خطأ أثناء رفع صورة المنتج.", "error");
       return;
     }
 
@@ -182,7 +195,10 @@ const addNewProduct = async () => {
 
     if (error) {
       console.error("Add product error:", error);
-      alert("تم رفع الصورة لكن حدث خطأ أثناء حفظ المنتج.");
+      showSiteMessage(
+  "تم رفع الصورة لكن حدث خطأ أثناء حفظ المنتج.",
+  "error"
+);
       return;
     }
 
@@ -199,7 +215,7 @@ const addNewProduct = async () => {
 
     setAdminAddProductOpen(false);
 
-      alert("تمت إضافة المنتج والصورة بنجاح ✅");
+      showSiteMessage("تمت إضافة المنتج والصورة بنجاح ✅", "success");
   } finally {
     setProductSaving(false);
   }
@@ -222,7 +238,10 @@ const updateProduct = async () => {
     !editProductPrice ||
     !editProductCategory.trim()
   ) {
-    alert("من فضلك أدخل اسم المنتج والسعر والتصنيف.");
+    showSiteMessage(
+  "من فضلك أدخل اسم المنتج والسعر والتصنيف.",
+  "error"
+);
     return;
   }
 
@@ -246,7 +265,7 @@ const updateProduct = async () => {
 
       if (uploadError) {
         console.error("Edit image upload error:", uploadError);
-        alert("حدث خطأ أثناء رفع الصورة الجديدة.");
+        showSiteMessage("حدث خطأ أثناء رفع الصورة الجديدة.", "error");
         return;
       }
 
@@ -278,7 +297,7 @@ const updateProduct = async () => {
 
     if (error) {
       console.error("Update product error:", error);
-      alert("حدث خطأ أثناء تحديث المنتج.");
+      showSiteMessage("حدث خطأ أثناء تحديث المنتج.", "error");
       return;
     }
 
@@ -297,7 +316,7 @@ const updateProduct = async () => {
     setEditProductFeatured(false);
     setEditProductImageFile(null);
 
-    alert("تم تعديل المنتج بنجاح ✅");
+    showSiteMessage("تم تعديل المنتج بنجاح ✅", "success");
   } finally {
     setProductSaving(false);
   }
@@ -321,7 +340,7 @@ const deleteProduct = async (product) => {
 
     if (error) {
       console.error("Delete product error:", error);
-      alert("حدث خطأ أثناء حذف المنتج.");
+      showSiteMessage("حدث خطأ أثناء حذف المنتج.", "error");
       return;
     }
 
@@ -329,7 +348,7 @@ const deleteProduct = async (product) => {
       current.filter((item) => item.id !== product.id)
     );
 
-    alert("تم حذف المنتج بنجاح ✅");
+    showSiteMessage("تم حذف المنتج بنجاح ✅", "success");
   } finally {
     setProductSaving(false);
   }
@@ -623,7 +642,7 @@ setTopSellingProducts(topProducts);
   };
   const adminLogin = async () => {
   if (!adminEmail.trim() || !adminPassword) {
-    alert("من فضلك أدخل الإيميل وكلمة المرور.");
+    showSiteMessage("من فضلك أدخل الإيميل وكلمة المرور.", "error");
     return;
   }
 
@@ -636,7 +655,7 @@ setTopSellingProducts(topProducts);
 
   if (error) {
     setAdminLoading(false);
-    alert("بيانات الدخول غير صحيحة.");
+    showSiteMessage("بيانات الدخول غير صحيحة.", "error");
     return;
   }
 
@@ -650,7 +669,7 @@ setTopSellingProducts(topProducts);
 
   if (adminError || !adminData) {
     await supabase.auth.signOut();
-    alert("هذا الحساب ليس لديه صلاحية Admin.");
+    showSiteMessage("هذا الحساب ليس لديه صلاحية Admin.", "error");
     return;
   }
 
@@ -666,12 +685,12 @@ const submitOrder = async () => {
     !governorate ||
     !address.trim()
   ) {
-    alert("من فضلك أكمل البيانات المطلوبة.");
+    showSiteMessage("من فضلك أكمل البيانات المطلوبة.", "error");
     return;
   }
 
   if (cart.length === 0) {
-    alert("السلة فارغة.");
+    showSiteMessage("السلة فارغة.", "error");
     return;
   }
 
@@ -705,9 +724,10 @@ const submitOrder = async () => {
   if (error) {
   console.error("Order submission error:", error);
 
-  alert(
-    `خطأ أثناء إرسال الطلب:\n\n${error.message}\n\n${error.details || ""}`
-  );
+  showSiteMessage(
+  "حصلت مشكلة أثناء إرسال الطلب. حاول مرة أخرى.",
+  "error"
+);
 
   return;
 }
@@ -722,6 +742,33 @@ const submitOrder = async () => {
   setNotes("");
   setCheckoutOpen(false);
 };
+const siteMessageBox = siteMessage ? (
+  <div className={`site-message ${siteMessageType}`}>
+    <div className="site-message-icon">
+      <i
+        className={
+          siteMessageType === "success"
+            ? "fa-solid fa-check"
+            : siteMessageType === "error"
+            ? "fa-solid fa-circle-exclamation"
+            : "fa-solid fa-circle-info"
+        }
+      />
+    </div>
+
+    <div className="site-message-text">
+      {siteMessage}
+    </div>
+
+    <button
+      type="button"
+      onClick={() => setSiteMessage("")}
+      aria-label="إغلاق"
+    >
+      <i className="fa-solid fa-xmark" />
+    </button>
+  </div>
+) : null;
 if (!adminChecked) {
   return null;
 }
@@ -1058,7 +1105,7 @@ if (adminUser && adminOrdersOpen) {
 
   if (error) {
     console.error("Update order status error:", error);
-    alert("حدث خطأ أثناء تحديث حالة الطلب.");
+    showSiteMessage("حدث خطأ أثناء تحديث حالة الطلب.", "error");
     return;
   }
 
@@ -2021,6 +2068,8 @@ return orderSuccess ? (
   </div>
 ) : (
     <div className="app" dir="rtl">
+      {siteMessageBox}
+
       {/* Announcement */}
       <div className="announcement">
         🔥 عرض الإفتتاح: خصم 15% على أول طلب – استخدم كود:
