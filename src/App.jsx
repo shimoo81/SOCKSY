@@ -102,6 +102,7 @@ const [shippedOrdersCount, setShippedOrdersCount] = useState(0);
 const [cancelledOrdersCount, setCancelledOrdersCount] = useState(0);
 const [totalSales, setTotalSales] = useState(0);
 const [totalProductsSold, setTotalProductsSold] = useState(0);
+const [topSellingProducts, setTopSellingProducts] = useState([]);
 const [adminAddProductOpen, setAdminAddProductOpen] = useState(false);
 const [newProductName, setNewProductName] = useState("");
 const [newProductPrice, setNewProductPrice] = useState("");
@@ -479,7 +480,48 @@ useEffect(() => {
 
     setTotalProductsSold(productsSold);
   }
+const productSales = {};
 
+activeOrders.forEach((order) => {
+  let items = order.items;
+
+  if (typeof items === "string") {
+    try {
+      items = JSON.parse(items);
+    } catch {
+      items = [];
+    }
+  }
+
+  if (!Array.isArray(items)) {
+    return;
+  }
+
+  items.forEach((item) => {
+    const key = item.id || item.name;
+
+    if (!key) {
+      return;
+    }
+
+    if (!productSales[key]) {
+      productSales[key] = {
+        id: item.id || null,
+        name: item.name || "منتج",
+        quantity: 0,
+        image: item.image || null,
+      };
+    }
+
+    productSales[key].quantity += Number(item.quantity || 0);
+  });
+});
+
+const topProducts = Object.values(productSales)
+  .sort((a, b) => b.quantity - a.quantity)
+  .slice(0, 5);
+
+setTopSellingProducts(topProducts);
   if (adminUser) {
     loadOrders();
   }
@@ -1462,7 +1504,51 @@ if (adminUser) {
 </button>
 
 </div>
+<div className="admin-top-products">
+  <div className="admin-top-products-header">
+    <div>
+      <div className="eyebrow">BEST SELLING</div>
+      <h2>أكثر المنتجات مبيعًا</h2>
+    </div>
+  </div>
 
+  {topSellingProducts.length === 0 ? (
+    <p className="admin-top-products-empty">
+      لا توجد مبيعات حتى الآن
+    </p>
+  ) : (
+    <div className="admin-top-products-list">
+      {topSellingProducts.map((product, index) => (
+        <div
+          className="admin-top-product-item"
+          key={product.id || product.name}
+        >
+          <div className="admin-top-product-rank">
+            {index + 1}
+          </div>
+
+          <div className="admin-top-product-image">
+            {product.image ? (
+              <img
+                src={product.image}
+                alt={product.name}
+              />
+            ) : (
+              <span>🧦</span>
+            )}
+          </div>
+
+          <div className="admin-top-product-info">
+            <strong>{product.name}</strong>
+            <span>
+              {product.quantity.toLocaleString("ar-EG")} قطعة مباعة
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+</div>
         <button
           className="admin-back-button"
           onClick={() => setAdminUser(null)}
