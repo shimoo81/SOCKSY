@@ -479,7 +479,6 @@ useEffect(() => {
     );
 
     setTotalProductsSold(productsSold);
-  }
 const productSales = {};
 
 activeOrders.forEach((order) => {
@@ -522,6 +521,8 @@ const topProducts = Object.values(productSales)
   .slice(0, 5);
 
 setTopSellingProducts(topProducts);
+    }
+
   if (adminUser) {
     loadOrders();
   }
@@ -1104,21 +1105,7 @@ if (adminUser && adminOrdersOpen) {
       0
     )
 );
-setTotalProductsSold(
-  sortedOrders
-    .filter((item) => item.status !== "cancelled")
-    .reduce(
-      (total, order) =>
-        total +
-        (Array.isArray(order.items)
-          ? order.items.reduce(
-              (sum, item) => sum + Number(item.quantity || 0),
-              0
-            )
-          : 0),
-      0
-    )
-);
+
 setTotalProductsSold(
   updatedOrders
     .filter((item) => item.status !== "cancelled")
