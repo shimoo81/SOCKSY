@@ -1730,6 +1730,32 @@ return orderSuccess ? (
 </button>
       </div>
     </div>
+        </div>
+    </div>
+
+    {cartItemsCount > 0 && (
+      <div className="floating-cart-bar">
+        <div className="floating-cart-info">
+          <i className="fa-solid fa-bag-shopping" />
+          <div>
+            <strong>السلة</strong>
+            <span>
+              {cartItemsCount} منتج — {cartTotal} جنيه
+            </span>
+          </div>
+        </div>
+
+        <button
+          onClick={() => {
+            setSelectedProduct(null);
+            setCartOpen(true);
+          }}
+        >
+          عرض السلة
+          <i className="fa-solid fa-arrow-left" />
+        </button>
+      </div>
+    )}
   </div>
   ) : checkoutOpen ? (
   <div className="checkout-page">
