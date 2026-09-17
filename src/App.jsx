@@ -422,29 +422,62 @@ useEffect(() => {
     );
 
     setCompletedOrdersCount(
-  sortedOrders.filter(
-    (order) => order.status === "completed"
-  ).length
-);
+      sortedOrders.filter(
+        (order) => order.status === "completed"
+      ).length
+    );
 
-setShippedOrdersCount(
-  sortedOrders.filter(
-    (order) => order.status === "shipped"
-  ).length
-);
+    setShippedOrdersCount(
+      sortedOrders.filter(
+        (order) => order.status === "shipped"
+      ).length
+    );
 
-setCancelledOrdersCount(
-  sortedOrders.filter(
-    (order) => order.status === "cancelled"
-  ).length
-);
+    setCancelledOrdersCount(
+      sortedOrders.filter(
+        (order) => order.status === "cancelled"
+      ).length
+    );
 
-setTotalSales(
-      sortedOrders.reduce(
+    const activeOrders = sortedOrders.filter(
+      (order) => order.status !== "cancelled"
+    );
+
+    setTotalSales(
+      activeOrders.reduce(
         (total, order) => total + Number(order.total || 0),
         0
       )
     );
+
+    const productsSold = activeOrders.reduce(
+      (total, order) => {
+        let items = order.items;
+
+        if (typeof items === "string") {
+          try {
+            items = JSON.parse(items);
+          } catch {
+            items = [];
+          }
+        }
+
+        if (!Array.isArray(items)) {
+          return total;
+        }
+
+        return (
+          total +
+          items.reduce(
+            (sum, item) => sum + Number(item.quantity || 0),
+            0
+          )
+        );
+      },
+      0
+    );
+
+    setTotalProductsSold(productsSold);
   }
 
   if (adminUser) {
