@@ -1733,6 +1733,7 @@ return orderSuccess ? (
   </div>
   ) : checkoutOpen ? (
   <div className="checkout-page">
+    {siteMessageBox}
     <button
       className="back-button"
       onClick={() => setCheckoutOpen(false)}
