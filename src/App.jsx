@@ -2432,7 +2432,20 @@ return orderSuccess ? (
 
                 <del>{bundle.oldPrice} جنيه</del>
 
-                <button>اختار الباقة</button>
+                <button
+  onClick={() =>
+    addToCart({
+      id: `bundle-${bundle.quantity}`,
+      name: `باقة ${bundle.quantity} شرابات`,
+      price: Number(bundle.price),
+      old_price: Number(bundle.oldPrice),
+      category: "عروض الباقات",
+      description: `باقة ${bundle.quantity} شرابات بسعر مميز`,
+    })
+  }
+>
+  اختار الباقة
+</button>
               </article>
             ))}
 
