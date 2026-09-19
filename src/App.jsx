@@ -2256,7 +2256,7 @@ return orderSuccess ? (
         <section className="section reveal" id="categories">
           <div className="section-heading">
             <div className="eyebrow">FIND YOUR STYLE</div>
-            <h2>عرض الباقات</h2>
+            <h2>اختار ستايلك</h2>
             <p>اختار الستايل اللي يناسبك</p>
           </div>
 
