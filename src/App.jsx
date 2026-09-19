@@ -2218,7 +2218,7 @@ return orderSuccess ? (
 <h1>
   خليك <span>مختلف</span>
   <br />
-  مع SOCKSY
+  <span className="hero-second-line">مع SOCKSY</span>
 </h1>
 
 <p>
