@@ -432,7 +432,9 @@ button:focus-visible {
   position: relative;
   text-shadow: 0 8px 18px rgba(239, 185, 59, 0.18);
 }
-
+.hero-content h1 .hero-second-line {
+  top: 10px;
+}
 .hero-content h1 span::after {
   content: "";
   position: absolute;
