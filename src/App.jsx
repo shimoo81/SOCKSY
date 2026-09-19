@@ -2396,7 +2396,7 @@ return orderSuccess ? (
 
                   <button
   className="product-button"
-  onClick={() =>
+  onClick={() => {
     addToCart({
       id: `different-${product.name}`,
       name: product.name,
@@ -2405,8 +2405,13 @@ return orderSuccess ? (
       category: "شرابات مختلفة",
       description: "تصميم مميز من SOCKSY",
       icon: product.icon,
-    })
-  }
+    });
+
+    showSiteMessage(
+      "تمت إضافة المنتج للسلة بنجاح 🛒",
+      "success"
+    );
+  }}
 >
   أضف للسلة
   <i className="fa-solid fa-bag-shopping" />
