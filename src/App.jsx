@@ -2216,9 +2216,12 @@ return orderSuccess ? (
             <div className="eyebrow">STEP INTO YOUR STYLING</div>
 
 <h1>
-  خليك <span>مختلف</span>
-  <br />
-  <span className="hero-second-line">مع SOCKSY</span>
+  خليك
+  <span className="hero-title-motion">
+    <span>مختلف</span>
+    <br />
+    <span className="hero-second-line">مع SOCKSY</span>
+  </span>
 </h1>
 
 <p>
