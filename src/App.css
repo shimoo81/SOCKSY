@@ -461,7 +461,7 @@ button:focus-visible {
 .hero-content h1 .hero-second-line {
   top: 10px;
 }
-.hero-content h1 span::after {
+.hero-content h1 .hero-title-motion > span:first-child::after {
   content: "";
   position: absolute;
   right: 0;
