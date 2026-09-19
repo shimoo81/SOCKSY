@@ -423,7 +423,25 @@ button:focus-visible {
   letter-spacing: 3px;
   margin-bottom: 25px;
 }
+.hero-content h1 span {
+  color: var(--yellow);
+  display: inline-block;
+  position: relative;
+  text-shadow: 0 8px 18px rgba(239, 185, 59, 0.18);
+}
 
+.hero-content h1 span::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: -6px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--yellow-soft);
+  z-index: -1;
+  transform: rotate(-2deg);
+}
 .hero-content > p {
   max-width: 590px;
   color: var(--muted);
