@@ -2215,12 +2215,16 @@ return orderSuccess ? (
           <div className="hero-content">
             <div className="eyebrow">STEP INTO YOUR STYLING</div>
 
-            <h1>SOCKSY</h1>
+<h1>
+  خليك <span>مختلف</span>
+  <br />
+  مع SOCKSY
+</h1>
 
-            <p>
-              استايلك يبدأ من خطواتك، جوارب بتصميمات عصرية وجودة عالية تناسب كل
-              ستايل، وكل يوم.
-            </p>
+<p>
+  جوارب بتصميمات عصرية وخامات مريحة، معمولة عشان تكمل ستايلك
+  وتخلي كل خطوة ليها طابعك الخاص.
+</p>
 
             <div className="features">
               {features.map((feature) => (
