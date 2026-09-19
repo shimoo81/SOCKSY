@@ -432,6 +432,32 @@ button:focus-visible {
   position: relative;
   text-shadow: 0 8px 18px rgba(239, 185, 59, 0.18);
 }
+.hero-title-motion {
+  animation: heroTitleSwing 4.5s ease-in-out infinite;
+  transform-origin: center center;
+}
+
+@keyframes heroTitleSwing {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  25% {
+    transform: translate(5px, -3px) rotate(1deg);
+  }
+
+  50% {
+    transform: translate(0, 2px) rotate(0deg);
+  }
+
+  75% {
+    transform: translate(-5px, -3px) rotate(-1deg);
+  }
+
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
 .hero-content h1 .hero-second-line {
   top: 10px;
 }
