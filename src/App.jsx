@@ -2446,16 +2446,22 @@ return orderSuccess ? (
                 <del>{bundle.oldPrice} جنيه</del>
 
                 <button
-  onClick={() =>
-    addToCart({
-      id: `bundle-${bundle.quantity}`,
-      name: `باقة ${bundle.quantity} شرابات`,
-      price: Number(bundle.price),
-      old_price: Number(bundle.oldPrice),
-      category: "عروض الباقات",
-      description: `باقة ${bundle.quantity} شرابات بسعر مميز`,
-    })
-  }
+  onClick={() => {
+  addToCart({
+    id: `different-${product.name}`,
+    name: product.name,
+    price: Number(product.price),
+    old_price: Number(product.oldPrice),
+    category: "شرابات مختلفة",
+    description: "تصميم مميز من SOCKSY",
+    icon: product.icon,
+  });
+
+  showSiteMessage(
+    "تمت إضافة المنتج للسلة بنجاح 🛒",
+    "success"
+  );
+}}
 >
   اختار الباقة
 </button>
