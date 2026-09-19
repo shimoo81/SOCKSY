@@ -2343,11 +2343,14 @@ return orderSuccess ? (
   </div>
 
   <div className="center-button">
-    <button className="outline-button">
-      عرض جميع المنتجات
-      <i className="fa-solid fa-arrow-left" />
-    </button>
-  </div>
+  <button
+    className="outline-button"
+    onClick={() => scrollToSection("products")}
+  >
+    عرض جميع المنتجات
+    <i className="fa-solid fa-arrow-left" />
+  </button>
+</div>
 </section>
 
         {/* Different Socks */}
