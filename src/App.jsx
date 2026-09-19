@@ -2353,75 +2353,6 @@ return orderSuccess ? (
 </div>
 </section>
 
-        {/* Different Socks */}
-        <section className="section reveal different-section">
-          <div className="section-heading">
-            <div className="eyebrow">STEP UP</div>
-            <h2>شرابات مختلفة</h2>
-            <p>تصميمات تخلي خطواتك مختلفة</p>
-          </div>
-
-          <div className="products-grid">
-            {differentProducts.map((product, index) => (
-              <article className="product-card different-card" key={product.name}>
-                <div className="discount-badge">26%</div>
-
-                <button
-                  className={`favorite ${
-                    favorites.includes(index + 10) ? "active" : ""
-                  }`}
-                  onClick={() => toggleFavorite(index + 10)}
-                  aria-label="إضافة للمفضلة"
-                >
-                  <i
-                    className={
-                      favorites.includes(index + 10)
-                        ? "fa-solid fa-heart"
-                        : "fa-regular fa-heart"
-                    }
-                  />
-                </button>
-
-                <div className="product-image">
-                  <span>{product.icon}</span>
-                </div>
-
-                <div className="product-info">
-                  <h3>{product.name}</h3>
-
-                  <div className="price-row">
-                    <strong>{product.price} جنيه</strong>
-                    <del>{product.oldPrice} جنيه</del>
-                  </div>
-
-                  <button
-  className="product-button"
-  onClick={() => {
-    addToCart({
-      id: `different-${product.name}`,
-      name: product.name,
-      price: Number(product.price),
-      old_price: Number(product.oldPrice),
-      category: "شرابات مختلفة",
-      description: "تصميم مميز من SOCKSY",
-      icon: product.icon,
-    });
-
-    showSiteMessage(
-      "تمت إضافة المنتج للسلة بنجاح 🛒",
-      "success"
-    );
-  }}
->
-  أضف للسلة
-  <i className="fa-solid fa-bag-shopping" />
-</button>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
         {/* Bundles */}
         <section className="section reveal bundles-section" id="bundles">
           <div className="section-heading">
@@ -2492,6 +2423,75 @@ return orderSuccess ? (
           </div>
         </section>
 
+{/* Different Socks */}
+        <section className="section reveal different-section">
+          <div className="section-heading">
+            <div className="eyebrow">STEP UP</div>
+            <h2>شرابات مختلفة</h2>
+            <p>تصميمات تخلي خطواتك مختلفة</p>
+          </div>
+
+          <div className="products-grid">
+            {differentProducts.map((product, index) => (
+              <article className="product-card different-card" key={product.name}>
+                <div className="discount-badge">26%</div>
+
+                <button
+                  className={`favorite ${
+                    favorites.includes(index + 10) ? "active" : ""
+                  }`}
+                  onClick={() => toggleFavorite(index + 10)}
+                  aria-label="إضافة للمفضلة"
+                >
+                  <i
+                    className={
+                      favorites.includes(index + 10)
+                        ? "fa-solid fa-heart"
+                        : "fa-regular fa-heart"
+                    }
+                  />
+                </button>
+
+                <div className="product-image">
+                  <span>{product.icon}</span>
+                </div>
+
+                <div className="product-info">
+                  <h3>{product.name}</h3>
+
+                  <div className="price-row">
+                    <strong>{product.price} جنيه</strong>
+                    <del>{product.oldPrice} جنيه</del>
+                  </div>
+
+                  <button
+  className="product-button"
+  onClick={() => {
+    addToCart({
+      id: `different-${product.name}`,
+      name: product.name,
+      price: Number(product.price),
+      old_price: Number(product.oldPrice),
+      category: "شرابات مختلفة",
+      description: "تصميم مميز من SOCKSY",
+      icon: product.icon,
+    });
+
+    showSiteMessage(
+      "تمت إضافة المنتج للسلة بنجاح 🛒",
+      "success"
+    );
+  }}
+>
+  أضف للسلة
+  <i className="fa-solid fa-bag-shopping" />
+</button>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+        
         {/* Trust */}
         <section className="trust-section reveal">
           <div className="trust-item">
