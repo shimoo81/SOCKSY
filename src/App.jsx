@@ -2491,20 +2491,53 @@ return orderSuccess ? (
       </main>
 
       {/* Footer */}
-      <footer className="footer" id="contact">
-        <div className="footer-logo">
-          <div className="logo-icon">
-            <span className="sock-icon">🧦</span>
-          </div>
-
-          <div>
-            <div className="logo-name">SOCKSY</div>
-            <div className="logo-tagline">STEP INTO YOUR STYLING</div>
-          </div>
+<footer className="footer" id="contact">
+  <div className="footer-main">
+    <div className="footer-brand">
+      <div className="footer-logo">
+        <div className="logo-icon">
+          <span className="sock-icon">🧦</span>
         </div>
 
-        <p>© 2026 SOCKSY. كل الحقوق محفوظة.</p>
-      </footer>
+        <div>
+          <div className="logo-name">SOCKSY</div>
+          <div className="logo-tagline">STEP INTO YOUR STYLING</div>
+        </div>
+      </div>
+
+      <p>
+        جوارب بتصميمات عصرية وخامات مريحة،
+        <br />
+        معمولة عشان تكمل ستايلك.
+      </p>
+    </div>
+
+    <div className="footer-links">
+      <strong>استكشف</strong>
+
+      <button onClick={() => scrollToSection("home")}>
+        الرئيسية
+      </button>
+
+      <button onClick={() => scrollToSection("categories")}>
+        الأقسام
+      </button>
+
+      <button onClick={() => scrollToSection("products")}>
+        الأكثر مبيعًا
+      </button>
+
+      <button onClick={() => scrollToSection("bundles")}>
+        عروض الباقات
+      </button>
+    </div>
+  </div>
+
+  <div className="footer-bottom">
+    <p>© 2026 SOCKSY. كل الحقوق محفوظة.</p>
+    <span>STEP INTO YOUR STYLING 🧦</span>
+  </div>
+</footer>
 
       {/* Back To Top */}
           <button
