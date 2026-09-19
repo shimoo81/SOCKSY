@@ -1684,6 +1684,8 @@ return orderSuccess ? (
   </div>
 ) : selectedProduct ? (
   <div className="product-details-page">
+    {siteMessageBox}
+
     <button
       className="back-button"
       onClick={() => setSelectedProduct(null)}
