@@ -3539,3 +3539,134 @@ button:focus-visible {
 .product-card .product-button:hover {
   transform: translateY(-2px);
 }
+.different-section {
+  position: relative;
+}
+
+.different-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.different-card::before {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  top: -70px;
+  left: -70px;
+  border-radius: 50%;
+  background: rgba(246, 217, 138, 0.18);
+  pointer-events: none;
+}
+
+.different-card .discount-badge {
+  z-index: 3;
+}
+
+.different-card .product-image {
+  background:
+    radial-gradient(
+      circle at 50% 40%,
+      #fffaf0,
+      transparent 65%
+    );
+}
+.bundles-section .section-heading {
+  margin-bottom: 35px;
+}
+
+.bundles-section .bundle-card {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.bundles-section .bundle-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(62, 42, 22, 0.15);
+}
+
+.bundles-section .bundle-number {
+  transition: transform 0.3s ease;
+}
+
+.bundles-section .bundle-card:hover .bundle-number {
+  transform: scale(1.04);
+}
+
+.bundles-section .bundle-card button {
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.bundles-section .bundle-card button:hover {
+  transform: translateY(-2px);
+}
+.trust-section {
+  gap: 18px;
+}
+
+.trust-item {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 18px 20px;
+  background: var(--cream);
+  box-shadow: 0 8px 22px rgba(62, 42, 22, 0.07);
+}
+
+.trust-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 30px rgba(62, 42, 22, 0.12);
+}
+
+.trust-icon {
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
+}
+
+.trust-item:hover .trust-icon {
+  transform: scale(1.08);
+  background: var(--yellow-soft);
+}
+@media (max-width: 650px) {
+  .hero-title-motion {
+    animation-duration: 5.5s;
+  }
+
+  .category-item:hover {
+    transform: none;
+  }
+
+  .category-item:hover .category-circle {
+    transform: none;
+  }
+
+  .product-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .product-card:hover .product-image {
+    transform: none;
+  }
+
+  .different-card:hover {
+    transform: none;
+  }
+
+  .bundles-section .bundle-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .trust-item:hover {
+    transform: none;
+    box-shadow: 0 8px 22px rgba(62, 42, 22, 0.07);
+  }
+}
