@@ -2394,10 +2394,23 @@ return orderSuccess ? (
                     <del>{product.oldPrice} جنيه</del>
                   </div>
 
-                  <button className="product-button">
-                    أضف للسلة
-                    <i className="fa-solid fa-bag-shopping" />
-                  </button>
+                  <button
+  className="product-button"
+  onClick={() =>
+    addToCart({
+      id: `different-${product.name}`,
+      name: product.name,
+      price: Number(product.price),
+      old_price: Number(product.oldPrice),
+      category: "شرابات مختلفة",
+      description: "تصميم مميز من SOCKSY",
+      icon: product.icon,
+    })
+  }
+>
+  أضف للسلة
+  <i className="fa-solid fa-bag-shopping" />
+</button>
                 </div>
               </article>
             ))}
