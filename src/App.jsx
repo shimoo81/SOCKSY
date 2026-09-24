@@ -76,6 +76,7 @@ function App() {
   const [products, setProducts] = useState([]);
 const [selectedProduct, setSelectedProduct] = useState(null);
 const [cart, setCart] = useState([]);
+const [selectedCategory, setSelectedCategory] = useState("");
 const [cartOpen, setCartOpen] = useState(false);
 const [checkoutOpen, setCheckoutOpen] = useState(false);
 const [customerName, setCustomerName] = useState("");
@@ -2101,10 +2102,9 @@ return orderSuccess ? (
       {siteMessageBox}
 
       {/* Announcement */}
-      <div className="announcement">
-        🔥 عرض الإفتتاح: خصم 15% على أول طلب – استخدم كود:
-        <strong> SOCKSY15 </strong>
-      </div>
+     <div className="announcement">
+  🔥 عروض SOCKSY الجديدة وصلت — اختار باقتك ووفر أكتر
+</div>
 
       {/* Header */}
       <header className="header">
@@ -2267,11 +2267,15 @@ return orderSuccess ? (
                   category.special ? "special" : ""
                 }`}
                 key={index}
-                onClick={() =>
-                  category.special
-                    ? scrollToSection("bundles")
-                    : scrollToSection("products")
-                }
+                onClick={() => {
+  if (category.special) {
+    scrollToSection("bundles");
+    return;
+  }
+
+  setSelectedCategory(category.title);
+  scrollToSection("products");
+}}
               >
                 <div className="category-circle">
                   <span>{category.icon}</span>
@@ -2292,7 +2296,15 @@ return orderSuccess ? (
   </div>
 
   <div className="products-grid">
-    {(products.length > 0 ? products : bestSelling).map((product, index) => (
+    <div className="products-grid">
+  {(selectedCategory
+    ? products.filter(
+        (product) => product.category === selectedCategory
+      )
+    : products.length > 0
+    ? products
+    : bestSelling
+  ).map((product, index) => (
       <article className="product-card" key={product.id || product.name}>
         <button
           className={`favorite ${
