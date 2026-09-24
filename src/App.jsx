@@ -2385,12 +2385,15 @@ return orderSuccess ? (
 
   <div className="center-button">
   <button
-    className="outline-button"
-    onClick={() => scrollToSection("products")}
-  >
-    عرض جميع المنتجات
-    <i className="fa-solid fa-arrow-left" />
-  </button>
+  className="outline-button"
+  onClick={() => {
+    setSelectedCategory("");
+    scrollToSection("products");
+  }}
+>
+  عرض جميع المنتجات
+  <i className="fa-solid fa-arrow-left" />
+</button>
 </div>
 </section>
 
