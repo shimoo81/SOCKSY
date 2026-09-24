@@ -77,6 +77,11 @@ function App() {
 const [selectedProduct, setSelectedProduct] = useState(null);
 const [cart, setCart] = useState([]);
 const [selectedCategory, setSelectedCategory] = useState("");
+const normalizeCategory = (value) => {
+  return String(value || "")
+    .trim()
+    .replace(/[أإآ]/g, "ا");
+};
 const [cartOpen, setCartOpen] = useState(false);
 const [checkoutOpen, setCheckoutOpen] = useState(false);
 const [customerName, setCustomerName] = useState("");
@@ -2298,8 +2303,10 @@ return orderSuccess ? (
   <div className="products-grid">
   {(selectedCategory
     ? products.filter(
-        (product) => product.category === selectedCategory
-      )
+  (product) =>
+    normalizeCategory(product.category) ===
+    normalizeCategory(selectedCategory)
+)
     : products.length > 0
     ? products
     : bestSelling
