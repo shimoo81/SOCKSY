@@ -2301,17 +2301,44 @@ return orderSuccess ? (
   </div>
 
   <div className="products-grid">
-  {(selectedCategory
-    ? products.filter(
-  (product) =>
-    normalizeCategory(product.category) ===
-    normalizeCategory(selectedCategory)
-)
-    : products.length > 0
-    ? products
-    : bestSelling
-  ).map((product, index) => (
-      <article className="product-card" key={product.id || product.name}>
+  {(() => {
+    const displayedProducts = selectedCategory
+      ? products.filter(
+          (product) =>
+            normalizeCategory(product.category) ===
+            normalizeCategory(selectedCategory)
+        )
+      : products.length > 0
+      ? products
+      : bestSelling;
+
+    if (selectedCategory && displayedProducts.length === 0) {
+      return (
+        <div className="empty-category-message">
+          <div className="empty-category-icon">🧦</div>
+
+          <h3>قريبًا هنضيف تصميمات جديدة للقسم ده</h3>
+
+          <p>
+            تابعنا، لسه في حاجات حلوة جاية!
+          </p>
+
+          <button
+            className="outline-button"
+            onClick={() => setSelectedCategory("")}
+          >
+            عرض كل المنتجات
+            <i className="fa-solid fa-arrow-left" />
+          </button>
+        </div>
+      );
+    }
+
+    return displayedProducts.map((product, index) => (
+      <article
+        className="product-card"
+        key={product.id || product.name}
+      >
         <button
           className={`favorite ${
             favorites.includes(index) ? "active" : ""
@@ -2338,27 +2365,31 @@ return orderSuccess ? (
 
         <div className="product-info">
           <h3>{product.name}</h3>
+
           <p>
             {product.description || "جودة وراحة في كل خطوة"}
           </p>
 
-         <div className="price-row">
-  <strong>{product.price} جنيه</strong>
-  {product.old_price && (
-    <del>{product.old_price} جنيه</del>
-  )}
-</div>
+          <div className="price-row">
+            <strong>{product.price} جنيه</strong>
+
+            {product.old_price && (
+              <del>{product.old_price} جنيه</del>
+            )}
+          </div>
+
           <button
-  className="product-button"
-  onClick={() => setSelectedProduct(product)}
->
-  عرض المنتج
-  <i className="fa-solid fa-arrow-left" />
-</button>
+            className="product-button"
+            onClick={() => setSelectedProduct(product)}
+          >
+            عرض المنتج
+            <i className="fa-solid fa-arrow-left" />
+          </button>
         </div>
       </article>
-    ))}
-  </div>
+    ));
+  })()}
+</div>
 
   <div className="center-button">
   <button
