@@ -2295,10 +2295,20 @@ return orderSuccess ? (
         {/* Best Selling */}
 <section className="section reveal" id="products">
   <div className="section-heading">
-    <div className="eyebrow">OUR FAVORITES</div>
-    <h2>الأكثر مبيعاً</h2>
-    <p>اختيارات عملائنا المفضلة</p>
+  <div className="eyebrow">
+    {selectedCategory ? "CATEGORY" : "OUR FAVORITES"}
   </div>
+
+  <h2>
+    {selectedCategory || "الأكثر مبيعاً"}
+  </h2>
+
+  <p>
+    {selectedCategory
+      ? `عرض منتجات قسم ${selectedCategory}`
+      : "اختيارات عملائنا المفضلة"}
+  </p>
+</div>
 
   <div className="products-grid">
   {(() => {
