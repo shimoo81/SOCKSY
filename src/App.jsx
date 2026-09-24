@@ -2322,14 +2322,6 @@ return orderSuccess ? (
           <p>
             تابعنا، لسه في حاجات حلوة جاية!
           </p>
-
-          <button
-            className="outline-button"
-            onClick={() => setSelectedCategory("")}
-          >
-            عرض كل المنتجات
-            <i className="fa-solid fa-arrow-left" />
-          </button>
         </div>
       );
     }
