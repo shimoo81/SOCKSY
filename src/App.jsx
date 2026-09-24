@@ -2296,7 +2296,6 @@ return orderSuccess ? (
   </div>
 
   <div className="products-grid">
-    <div className="products-grid">
   {(selectedCategory
     ? products.filter(
         (product) => product.category === selectedCategory
